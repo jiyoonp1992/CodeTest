@@ -9,10 +9,9 @@ public class level0_ {
 	}
 	
 	public static int solution() {
-		int answer = 0;
+        int answer = 0;
 		boolean check = false;
 		if(check) {
-			
 		}
         return answer;
 	}
