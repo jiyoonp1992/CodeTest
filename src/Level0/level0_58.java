@@ -12,15 +12,21 @@ public class level0_58 {
 	
 	public static String solution(String my_string) {
         String answer = "";
-		boolean check = false;
+        boolean check = false;
 		check = 0 < my_string.length() && my_string.length() < 100;
 		if(check) {
 			my_string = my_string.toLowerCase();
-			for(int i = 0; i < my_string.length(); i++) {
-				for(int j = 0; j < my_string.length(); j++) {
-					char tem = my_string.charAt(j);
+			char[] str = my_string.toCharArray();
+			for(int i = 0; i < str.length; i++) {
+				for(int j =0; j < str.length; j++) {
+					if(str[i] <= str[j]) {
+						char tem = str[j];
+						str[j] = str[i];
+						str[i] = tem;
+					}
 				}
 			}
+			answer = new String(str);
 		}
         return answer;
 	}
