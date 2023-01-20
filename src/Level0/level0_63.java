@@ -11,15 +11,22 @@ public class level0_63 {
 	
 	public static int solution(String before, String after) {
         int answer = 0;
+        int cnt = 0;
 		boolean check = false;
-		check = 0 < before.length() && before.length() == after.length() && after.length() < 1000;
+		check = 0 < before.length() && before.length() == after.length() && after.length() <= 1000;
 		if(check) {
-			String str = "";
-			for(int i = after.length() - 1; i >= 0; i--) {
-				str += after.charAt(i);
+			for(int i = 0; i < after.length(); i++) {
+				for(int j = 0; j < after.length(); j++) {
+					if(after.charAt(i) == after.charAt(j)){
+						cnt--;
+					}
+					if(before.charAt(i) == after.charAt(j)) {
+						cnt++;
+					}
+				}
 			}
-			if(before.equals(str)) {
-				answer++;
+			if(cnt == 0) {
+				answer = 1;
 			}
 		}
         return answer;
