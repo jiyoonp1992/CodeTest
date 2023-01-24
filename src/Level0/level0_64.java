@@ -3,7 +3,7 @@ package Level0;
 import java.util.Arrays;
 
 public class level0_64 {
-	//2차원으로 만글디
+	//2차원으로 만들기
 	public static void main(String[] args) {
 		int[] num01 = {1, 2, 3, 4, 5, 6, 7, 8};
 		int[] num02 = {100, 95, 2, 4, 5, 6, 18, 33, 948};
