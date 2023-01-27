@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class level0_76 {
 	//문자열 계산하기
 	public static void main(String[] args) {
-		System.out.println(solution("3 + 4"));
+		System.out.println(solution("3 - 4 + 5"));
 	}
 	
 	public static int solution(String my_string) {
@@ -13,20 +13,35 @@ public class level0_76 {
 		boolean check = false;
 		check = 5 <= my_string.length() && my_string.length() <= 100;
 		if(check) {
+			my_string = "+ " + my_string;
+			int idx = 0;
+			String sign = "";
 			for(int i = 0; i < my_string.length();) {
-				int cnt = 0;
-				int num = 0;
-				if(!Character.isDigit(my_string.charAt(i))) {
-					if(my_string.charAt(i) == '+') {
-						answer = answer + num;
+				idx = my_string.indexOf(" ");
+				if(Character.isDigit(my_string.charAt(i))) {
+					if(idx != -1) {
+						if(sign == "p") {
+							answer += Integer.parseInt(my_string.substring(0, idx));
+						} else {
+							answer -= Integer.parseInt(my_string.substring(0, idx));
+						}
+						my_string = my_string.substring(idx).trim();
 					} else {
-						answer = answer - num;
+						if(sign == "p") {
+							answer += Integer.parseInt(my_string);
+						} else {
+							answer -= Integer.parseInt(my_string);
+						}
+						my_string = "";
 					}
 				} else {
-					cnt = my_string.indexOf(' ');
-					num = Integer.parseInt(my_string.substring(0, cnt));
+					if(my_string.charAt(i) == '+') {
+						sign = "p";
+					} else {
+						sign = "m";
+					}
+					my_string = my_string.substring(1).trim();
 				}
-				my_string = my_string.substring(cnt).trim();
 			}
 		}
         return answer;
