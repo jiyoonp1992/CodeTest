@@ -12,10 +12,10 @@ public class level0_77 {
 		//System.out.println(solution(3,2));
 		//System.out.println(solution(4,1));
 		//System.out.println(solution(4,2));
-		System.out.println(solution(30,23));
+		//System.out.println(solution(30,23));
 		//System.out.println(factorial(15));
 //		solution(5,3);
-//		System.out.println(Math.random());
+		System.out.println(Math.random());
 //		for(int i = 16; i <= 30; i++) {
 //			for(int j = 16; j <= 30; j++) {
 //				System.out.println("j = " + j + ", i = " + i + ", answer = " + solution(j,i));
