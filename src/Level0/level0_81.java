@@ -24,24 +24,20 @@ public class level0_81 {
 			answer = new int[2];
 			int ud = (board[1]-1)/2, lr =(board[0]-1)/2, x = 0, y = 0;
 			for(String str : keyinput) {
-				System.out.println(ud);
-				System.out.println(lr);
 				if("up".equals(str)) {
 					if(ud > y) {
 						y++;
 					}
 				} else if ("down".equals(str)) {
-					if(Math.abs(ud) > Math.abs(y)) {
+					if(-ud < y) {
 						y--;
 					}
 				} else if ("left".equals(str)) {
-					if(Math.abs(lr) > Math.abs(x)) {
-						System.out.println("le");
+					if(-lr < x) {
 						x--;
 					}
 				} else {
-					if(Math.abs(lr) > Math.abs(x)) {
-						System.out.println("ri");
+					if(lr > x) {
 						x++;
 					}
 				}

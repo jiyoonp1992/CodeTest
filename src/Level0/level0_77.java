@@ -30,7 +30,6 @@ public class level0_77 {
 		check = 1 <= balls && balls <= 30 && 1 <= share && share <= 30 && share <= balls;
 		if(check) {
 			answer = 1;
-			int j = 1;
 			if(balls == share) {
 				answer = 1;
 			} else {
