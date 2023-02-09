@@ -9,8 +9,8 @@ public class level0_98 {
 		int[][] num02 = {{-1, 1}, {1, 3}, {3, 9}};
 		int[][] num03 = {{0, 5}, {3, 9}, {1, 10}};
 		System.out.println(solution(num01));
-		//System.out.println(solution(num02));
-		//System.out.println(solution(num03));
+		System.out.println(solution(num02));
+		System.out.println(solution(num03));
 		//System.out.println(Arrays.toString(solution()));
 	}
 	
@@ -20,15 +20,14 @@ public class level0_98 {
 		check = true;
 		if(check) {
 			int x = 0, y= 0, cnt = 0;
-			for(int[] num : lines) {
-				x = Math.min(x, num[0]);
-				y = Math.max(y, num[1]);
-			}
-			
+				x = Math.min(x, Math.min(lines[0][0], Math.min(lines[1][0],lines[2][0])));
+				y = Math.max(x, Math.max(lines[0][1], Math.max(lines[1][1],lines[2][1])));
 			for(int k = x; k <= y; k++) {
-				answer = lines[0][0] <= k && k <= lines[0][1] && lines[1][0] <= k && k <= lines[1][1]
-						|| lines[0][0] <= k && k <= lines[0][1] && lines[2][0] <= k && k <= lines[2][1]
-						|| lines[1][0] <= k && k <= lines[1][1] && lines[2][0] <= k && k <= lines[2][1] ? answer + 1:answer;
+				cnt = 0;
+				cnt = lines[0][0] <= k && k < lines[0][1] && lines[1][0] <= k && k < lines[1][1]
+						|| lines[0][0] <= k && k < lines[0][1] && lines[2][0] <= k && k < lines[2][1]
+						|| lines[1][0] <= k && k < lines[1][1] && lines[2][0] <= k && k < lines[2][1] ? cnt + 1:cnt;
+				answer = cnt >= 1 ? answer + 1 : answer;
 			}
 		}
         return answer;
