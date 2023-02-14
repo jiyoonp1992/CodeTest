@@ -22,9 +22,9 @@ public class level0_100 {
 				for (int j = 0; j < stdStr.length;j++) {
 					babbling[i] = babbling[i].replace(stdStr[j], " ");
 				}
-				if(babbling[i].isBlank()) {
-					answer++;
-				}
+//				if(babbling[i].isBlank()) {
+//					answer++;
+//				}
 			}
 		}
         return answer;
