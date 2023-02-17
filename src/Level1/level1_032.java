@@ -17,17 +17,17 @@ public class level1_032 {
         int[] answer = {};
         
         Stack<Integer> st = new Stack<>();
-        int x = 0,cnt = 0;
         for(int i :arr) {
-        	st.push(i);
-        	x = st.size() - 1;
-        	if(x > 1) {
-        		if(st.get(x-1).equals(st.get(x))) {
-        			st.pop();
-        		}
+        	if(st.size() == 0) {
+        		st.push(i);
+        	} else if(st.get(st.size()-1) != i) {
+        		st.push(i);
         	}
-        	answer = Arrays.copyOf(answer, answer.length+1);
-        	answer[cnt] = st.get(cnt);
+        }
+        
+        answer = new int[st.size()];
+        for(int i = 0; i < st.size();i++) {
+        	answer[i] = st.get(i);
         }
         return answer;
 	}
