@@ -14,6 +14,7 @@ public class level1_043 {
         int[] answer = {};
 		boolean check = 2 <= numbers.length && numbers.length <= 100;
 		if(check) {
+			
 		}
         return answer;
 	}
