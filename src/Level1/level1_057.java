@@ -13,6 +13,9 @@ public class level1_057 {
 	public static int[] solution(int[] lottos, int[] win_nums) {
         int[] answer = {};
 		boolean check = false;
+		for(int i : lottos) {
+			
+		}
 		Arrays.asList(lottos).contains(win_nums);
         return answer;
 	}
