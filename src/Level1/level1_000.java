@@ -1,7 +1,6 @@
 package Level1;
 
 import java.util.Arrays;
-import java.util.*;
 
 public class level1_000 {
 	//
