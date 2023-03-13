@@ -6,9 +6,9 @@ public class level1_068 {
 	//성격 유형 검사하기
 	public static void main(String[] args) {
 		//String[] str = {"AN", "CF", "MJ", "RT", "NA"};
-		String[] str = {"RT", "TR", "FC"};
+		String[] str = {"RT", "RT", "RT", "RT"};
 		//int[] num = {5, 3, 2, 7, 5};
-		int[] num = {1, 2, 5};
+		int[] num = {1, 4, 4, 7};
 		System.out.println(solution(str, num));
 		//System.out.println(Arrays.toString(solution()));
 	}
@@ -51,6 +51,7 @@ public class level1_068 {
 					sum = 3;
 					break;
 				case 4:
+					sum = 0;
 					break;
 				};
 				
