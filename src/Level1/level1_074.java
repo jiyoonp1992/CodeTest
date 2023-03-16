@@ -7,7 +7,7 @@ public class level1_074 {
 	public static void main(String[] args) {
 		//String[] str = {".#...", "..#..", "...#."};
 		//String[] str = {".##...##.", "#..#.#..#", "#...#...#", ".#.....#.", "..#...#..", "...#.#...", "....#...."};
-		String[] str = {"#.", "#."};
+		String[] str = {"................................", ".................##............."};
 		//System.out.println(solution(str));
 		System.out.println(Arrays.toString(solution(str)));
 	}
@@ -15,8 +15,8 @@ public class level1_074 {
 	public static int[] solution(String[] wallpaper) {
         int[] answer = {};
 			answer = new int [4];
-			answer[0] = wallpaper.length + 1;
-			answer[1] = wallpaper.length + 1;
+			answer[0] = Math.max(wallpaper.length, wallpaper[0].length()) ;
+			answer[1] = Math.max(wallpaper.length, wallpaper[0].length()) ;
 			int x = 0, y = 0;
 			for(int i = 0; i < wallpaper.length; i++) {
 				if(wallpaper[i].contains("#")) {

@@ -21,36 +21,23 @@ public class level1_073 {
 			int[] reportCnt = new int[id_list.length];
 			String[] reportStr = new String[id_list.length];
 			Arrays.sort(report);
+			report = Arrays.stream(report).distinct().toArray(String[]:: new);
 			String id_str = "";
 			String rp_str = "";
 			int idx = 0;
 			for(int i = 0; i < report.length; i++) {
-				if(i < report.length - 1) {
-					if(!report[i].equals(report[i + 1])) {
-						rp_str = report[i].substring(report[i].indexOf(" ") + 1, report[i].length());
-						id_str = report[i].substring(0, report[i].indexOf(" "));
-						idx = Arrays.asList(id_list).indexOf(rp_str);
-						reportCnt[idx]++;
-						if(reportStr[idx] == null) {
-							reportStr[idx] = id_str;
-						} else {
-							reportStr[idx] = reportStr[idx] + " " + id_str;
-						}
-					}
+				rp_str = report[i].substring(report[i].indexOf(" ") + 1, report[i].length());
+				id_str = report[i].substring(0, report[i].indexOf(" "));
+				idx = Arrays.asList(id_list).indexOf(rp_str);
+				reportCnt[idx]++;
+				
+				if(reportStr[idx] == null) {
+					reportStr[idx] = id_str;
 				} else {
-					if(!report[i].equals(report[i - 1])) {
-						rp_str = report[i].substring(report[i].indexOf(" ") + 1, report[i].length());
-						id_str = report[i].substring(0, report[i].indexOf(" "));
-						idx = Arrays.asList(id_list).indexOf(rp_str);
-						reportCnt[idx]++;
-						if(reportStr[idx] == null) {
-							reportStr[idx] = id_str;
-						} else {
-							reportStr[idx] = reportStr[idx] + " " + id_str;
-						}
-					}
+					reportStr[idx] = reportStr[idx] + " " + id_str;
 				}
 			}
+			
 			int cnt = 0;
 			String[] id_ck_Str = {};
 			for(String chStr : reportStr) {
