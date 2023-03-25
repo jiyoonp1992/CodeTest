@@ -19,8 +19,8 @@ public class level2_015 {
         		x = arr[0];
         		y = arr[i];
         	} else {
-        		x = Math.min(x, arr[i]);
         		y = Math.max(x, arr[i]);
+        		x = Math.min(x, arr[i]);
         	}
         	
         	if(y%x == 0) {
@@ -30,12 +30,14 @@ public class level2_015 {
         		max = y;
         		for(;max%min != 0;) {
         			z = max % min;
-        			
+        			max = min;
+        			min = z;
         		}
         	}
+        	x = (x * y) / z;
         }
         
-        answer = (x * y) / x;
+        answer = x;
         
         return answer;
 	}
