@@ -1,8 +1,10 @@
 package Level2;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class level2_010 {
+public class level2_010_1 {
 	//영어 끝말잇기
 	public static void main(String[] args) {
 		//String[] str01 = {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"};
@@ -18,17 +20,18 @@ public class level2_010 {
 	}
 	
 	public static int[] solution(int n, String[] words) {
-		int[] answer = {};
+     	int[] answer = {};
         int cnt = 0;
-        StringBuilder sb = new StringBuilder();
+		Map<String, Integer> map = new HashMap<>();
+		
         answer = new int [2];
         int i = 0;
         for(; i < words.length;i++) {
             if(i == 0) {
-                sb.append(words[i]);
+                map.put(words[i], 1);
                 cnt++;
             } else {
-                if(sb.charAt(sb.length() - 1) != words[i].charAt(0) || sb.toString().contains(words[i])) {
+                if(words[i-1].charAt(words[i-1].length()-1) != words[i].charAt(0) || map.containsKey(words[i])) {
                     if(cnt >= n) {
                         cnt = cnt - n + 1;
                     } else {
@@ -52,11 +55,11 @@ public class level2_010 {
                     } else {
                         cnt++;
                     }
-                    
-                    sb.append("/" + words[i]);
+                    map.put(words[i], 1);
                 }
             }
         }
+        
         return answer;
-	}
+    }
 }
