@@ -8,13 +8,14 @@ public class level2_010 {
 		//String[] str01 = {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"};
 		//String[] str01 = {"hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"};
 		//String[] str01 = {"hello", "one", "even", "never", "now", "world", "draw"};
-		//String[] str01 = {"qwe", "eqwe", "eqwe", "qwe"};
+		String[] str01 = {"qwe", "eqwe", "eqwe", "qwe"};
 		//String[] str01 = {"abb", "baa", "ccc", "cda", "abb"};
 		//String[] str01 = {"land", "dream", "mom", "mom", "ror"};
-		String[] str01 = {"tank", "kick", "know", "wheel", "land", "dream", "tank", "mother", "robot", "tank"};
+		//String[] str01 = {"tank", "kick", "know", "wheel", "land", "dream", "tank", "mother", "robot", "tank"};
+		//String[] str01 = {"hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"};
 		//String[] str01 = {"ac","ca","ac","ac"};
 		//System.out.println(solution());
-		System.out.println(Arrays.toString(solution(3, str01)));
+		System.out.println(Arrays.toString(solution(2, str01)));
 	}
 	
 	public static int[] solution(int n, String[] words) {
@@ -22,13 +23,12 @@ public class level2_010 {
         int cnt = 0;
         StringBuilder sb = new StringBuilder();
         answer = new int [2];
-        int i = 0;
-        for(; i < words.length;i++) {
+        for(int i = 0; i < words.length;i++) {
             if(i == 0) {
                 sb.append(words[i]);
                 cnt++;
             } else {
-                if(sb.charAt(sb.length() - 1) != words[i].charAt(0) || sb.toString().contains(words[i])) {
+                if(sb.charAt(sb.length() - 1) != words[i].charAt(0) || sb.indexOf(words[i]) != -1) {
                     if(cnt >= n) {
                         cnt = cnt - n + 1;
                     } else {
@@ -54,6 +54,8 @@ public class level2_010 {
                     }
                     
                     sb.append("/" + words[i]);
+                    answer[0] = 0;
+                    answer[1] = 0;
                 }
             }
         }
