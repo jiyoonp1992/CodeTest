@@ -2,6 +2,7 @@ package Level2;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.stream.Collector;
 
 public class level2_022 {
 	//튜플
@@ -9,7 +10,7 @@ public class level2_022 {
 		//System.out.println(solution());
 		//System.out.println(Arrays.toString(solution("{{2},{2,1},{2,1,3},{2,1,3,4}}")));
 		//System.out.println(Arrays.toString(solution("{{2},{2,1},{2,1,3},{2,1,3,4}}")));
-		System.out.println(Arrays.toString(solution("{{4,2,3},{3},{2,3,4,2},{2,3}}")));
+		System.out.println(Arrays.toString(solution("{{4,2,3},{3},{2,3,4,1},{2,3}}")));
 	}
 	
 //	public static int[] solution(String s) {
@@ -30,35 +31,53 @@ public class level2_022 {
 		int[] answer = {};
 		String[] strArr = s.replace("{{", "").replace("}}", "").split("\\},\\{");
 		String[] arrStr = strArr.clone();
-		String[] reArrStr = {};
+		String[] ansArr = {};
+
 		Arrays.sort(strArr, Comparator.comparingInt(String::length));
 		Arrays.sort(arrStr, Comparator.comparingInt(String::length).reversed());
-		int num = 0, cnt = 0, x = 0;
+		
+		int num = 0;
+		
 		num = (int) arrStr[0].chars().filter(i -> i == ',').count();
-		arrStr = arrStr[0].split(",");
-		reArrStr = arrStr.clone();
-		reArrStr = Arrays.stream(reArrStr).distinct().toArray(String[]::new);
-		x = reArrStr.length == arrStr.length ? 0 : 1;
 		answer = new int[num + 1];
-		for(String temp:strArr) {
-			if(cnt == 0) {
-				answer[cnt] = Integer.valueOf(temp).intValue();
+		ansArr = new String[num + 1];
+		String str = "";
+		
+		for(int i = 0; i < num + 1;i++) {
+			if(i == 0) {
+				ansArr[i] = strArr[i];
 			} else {
-				arrStr = temp.split(",");
-				for(String str:arrStr) {
-					if(x == 0) {
-						if(!Arrays.toString(answer).contains(str)) {
-							answer[cnt] = Integer.valueOf(str).intValue();
-							break;
-						}
-					} else {
-						answer[cnt] = Integer.valueOf(str).intValue();
+				arrStr = strArr[i].split(",");
+				for(int j = 0; i < arrStr.length; j++) {
+					str = arrStr[j];
+					if(!Arrays.asList(ansArr).contains(str)) {
+						ansArr[i] = str;
 						break;
 					}
 				}
 			}
-			cnt++;
 		}
+//		
+//		for(String temp:strArr) {
+//			if(cnt == 0) {
+//				answer[cnt] = Integer.valueOf(temp).intValue();
+//			} else {
+//				arrStr = temp.split(",");
+//				for(String str:arrStr) {
+//					if(x == 0) {
+//						if(!Arrays.toString(answer).contains(str)) {
+//							answer[cnt] = Integer.valueOf(str).intValue();
+//							break;
+//						}
+//					} else {
+//						answer[cnt] = Integer.valueOf(str).intValue();
+//						break;
+//					}
+//				}
+//			}
+//			cnt++;
+//		}
+		answer = Arrays.stream(ansArr).mapToInt(Integer::parseInt).toArray();
 		return answer;
 	}
 }
