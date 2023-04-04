@@ -18,20 +18,19 @@ public class level2_028 {
 	public static int solution(int[] priorities, int location) {
         int answer = 0;
         int x = 0;
-        int cnt = 0;
+        int cnt = 1;
         x = priorities[location];
         Integer[] Arrint = {};
         Arrint = Arrays.stream(priorities).boxed().toArray(Integer[]::new);
         Arrays.sort(Arrint, Collections.reverseOrder());
-        for(int i = 0; i < priorities.length; i++) {
-        	if(i < location && priorities[i] > x) {
-        		cnt--;
-        	} else if (i >= location && priorities[i] < x) {
+        for(int i = location + 1; i < priorities.length; i++) {
+        	if(priorities[i] > x) {
+        		cnt = 2;
+        	} else if (priorities[i] == x){
         		cnt++;
         	}
-        	System.out.println(cnt);
         }
-        answer = Arrays.asList(Arrint).lastIndexOf(x) + 1 - cnt;
+        answer = cnt;
         return answer;
 	}
 }
