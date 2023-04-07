@@ -8,7 +8,7 @@ public class level2_030 {
 	//전화번호 목록
 	public static void main(String[] args) {
 		//String[] str = {"88","121","1238","1235","567"};
-		String[] str = {"123", "456", "4567", "999"};
+		String[] str = {"123", "456", "789"};
 		System.out.println(solution(str));
 		//System.out.println(Arrays.toString(solution()));
 	}
@@ -26,20 +26,30 @@ public class level2_030 {
 //        	}
 //        }
 //        return answer;
+        
+//		boolean answer = true;
+//        Arrays.sort(phone_book);
+//        List<String> list = new ArrayList<String>(Arrays.asList(phone_book));
+//        StringBuilder sb = new StringBuilder();
+//        String str = "";
+//        sb.append(list).replace(0, 1, " ");
+//        for(int i = 0; i < sb.length();) {
+//        	str = list.get(i);
+//        	sb.delete(0, str.length() + 2);
+//        	if(sb.indexOf(" " + str) != -1) {
+//        		answer = false;
+//        		break;
+//        	}
+//        }
+//        return answer;
+		
         boolean answer = true;
         Arrays.sort(phone_book);
         List<String> list = new ArrayList<String>(Arrays.asList(phone_book));
-        StringBuilder sb = new StringBuilder();
-        String str = "";
-        for(int i = 0; i < list.size();) {
-        	str = " " + list.get(i);
-        	list.remove(i);
-        	sb.append(list).replace(0, 1, " ");
-        	if(sb.indexOf(str) != -1) {
+        for(int i = 0; i < list.size() - 1; i++) {
+        	if(list.get(i + 1).startsWith(list.get(i))) {
         		answer = false;
         		break;
-        	} else {
-        		sb.delete(0, sb.length());
         	}
         }
         return answer;
