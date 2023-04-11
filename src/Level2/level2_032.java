@@ -12,29 +12,18 @@ public class level2_032 {
 	
 	public static int solution(int k, int[][] dungeons) {
         int answer = 0;
-        int[] tempArr = {0, 0};
-        for(int i = 0; i < dungeons.length; i++) {
-        	for(int j = i + 1 ; j < dungeons.length; j++) {
-        		if(dungeons[i][0] < dungeons[j][0]) {
-        			tempArr = dungeons[i];
-        			dungeons[i] = dungeons[j];
-        			dungeons[j] = tempArr;
-        		} else if((dungeons[i][0] == dungeons[j][0])){
-        			if(dungeons[i][1] < dungeons[j][1]) {
-        				tempArr = dungeons[i];
-            			dungeons[i] = dungeons[j];
-            			dungeons[j] = tempArr;
-        			}
-        		}
-        	}
+        if (depth == r) {
+            print(output, r);
+            return;
         }
-        
-        for(int[] numArr : dungeons ) {
-        	System.out.println(k);
-        	if(k >= numArr[0]) {
-        		k -= numArr[1];
-        		answer++;
-        	}
+
+        for (int i = 0; i < n; i++) {
+            if (visited[i] != true) {
+                visited[i] = true;
+                output[depth] = arr[i];
+                perm(arr, output, visited, depth + 1, n, r);
+                visited[i] = false;
+            }
         }
         return answer;
 	}
