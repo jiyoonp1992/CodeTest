@@ -12,19 +12,38 @@ public class level2_032 {
 	
 	public static int solution(int k, int[][] dungeons) {
         int answer = 0;
-        if (depth == r) {
-            print(output, r);
-            return;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (visited[i] != true) {
-                visited[i] = true;
-                output[depth] = arr[i];
-                perm(arr, output, visited, depth + 1, n, r);
-                visited[i] = false;
-            }
-        }
+        int tk = k;
+        int sum = 0;
+        sum = permutation(dungeons,0,dungeons.length - 1, tk, sum);
+        System.out.println("*********");
+        System.out.println(sum);
+        System.out.println("*********");
+        answer = Math.max(answer, sum);
         return answer;
+	}
+	
+	static int permutation(int[][] arr, int depth, int n, int tk, int sum) {
+		if(tk >= arr[depth][0]) {
+			tk -= arr[depth][1];
+			sum++;
+		}
+		if(depth == n || tk < arr[depth][0]) {
+			return sum;
+		}
+		
+		for(int i = depth; i <= n; i++) {
+			swap(arr, depth, i);
+			permutation(arr,depth + 1, n, tk, sum);
+			swap(arr, depth, i);
+		}
+		System.out.println("------");
+		System.out.println(sum);
+		return sum;
+	}
+	
+	static void swap (int[][] arr, int depth, int i) {
+		int[] temp = arr[depth];
+        arr[depth] = arr[i];
+        arr[i] = temp;
 	}
 }
