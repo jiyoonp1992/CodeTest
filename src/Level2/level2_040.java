@@ -3,6 +3,7 @@ package Level2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -132,45 +133,49 @@ public class level2_040 {
 //      return answer;
 		
 		
-		int answer = 0;
-		int[] ansArr = new int[4];
-		for(int i = 1; i < land.length;i++) {
-			land[i][0] += Math.max(land[i-1][1],Math.max(land[i-1][2],land[i-1][3]));
-	        land[i][1] += Math.max(land[i-1][0],Math.max(land[i-1][2],land[i-1][3]));
-	        land[i][2] += Math.max(land[i-1][0],Math.max(land[i-1][1],land[i-1][3]));
-	        land[i][3] += Math.max(land[i-1][0],Math.max(land[i-1][1],land[i-1][2]));
-	        if(i == land.length - 1) {
-	        	ansArr = land[i];
-   		  }
-		}
-		Arrays.sort(ansArr);
-		answer = ansArr[3];
-		return answer;
-		
-//      int answer = 0;
-//      int max = 0;
-//      List<Integer> list = new ArrayList<>();
-//      List<Integer> listTemp = new ArrayList<>();
-//      int[] idxArr = new int[4];
-//      idxArr[0] = 0;
-//      idxArr[1] = 1;
-//      idxArr[2] = 2;
-//      idxArr[3] = 3;
-//      for(int i = 1; i < land.length;i++) {
-//    	  list = Arrays.stream(land[i - 1]).boxed().collect(Collectors.toList());
-//   		  for(int j = 0; j < idxArr.length;j++) {
-//   			  listTemp.clear();
-//   			  listTemp.addAll(list);
-//   			  listTemp.set(idxArr[j], -1);
-//   			  max = Collections.max(listTemp);
-//   			  land[i][j] += max;
-//    	  }
-//   		  if(i == land.length - 1) {
-//   			idxArr = land[i];
+//		int answer = 0;
+//		int[] ansArr = new int[4];
+//		for(int i = 1; i < land.length;i++) {
+//			land[i][0] += Math.max(land[i-1][1],Math.max(land[i-1][2],land[i-1][3]));
+//	        land[i][1] += Math.max(land[i-1][0],Math.max(land[i-1][2],land[i-1][3]));
+//	        land[i][2] += Math.max(land[i-1][0],Math.max(land[i-1][1],land[i-1][3]));
+//	        land[i][3] += Math.max(land[i-1][0],Math.max(land[i-1][1],land[i-1][2]));
+//	        if(i == land.length - 1) {
+//	        	ansArr = land[i];
 //   		  }
-//      }
-//      Arrays.sort(idxArr);
-//      answer = idxArr[idxArr.length - 1];
-//      return answer;
+//		}
+//		Arrays.sort(ansArr);
+//		answer = ansArr[3];
+//		return answer;
+		
+      int answer = 0;
+      int max = 0;
+      LinkedList<Integer> list = new LinkedList<>();
+      LinkedList<Integer> listTemp = new LinkedList<>();
+      //List<Integer> list = new ArrayList<>();
+      //List<Integer> listTemp = new ArrayList<>();
+      int[] idxArr = new int[4];
+      idxArr[0] = 0;
+      idxArr[1] = 1;
+      idxArr[2] = 2;
+      idxArr[3] = 3;
+      for(int i = 1; i < land.length;i++) {
+    	  //list = Arrays.stream(land[i - 1]).boxed().collect(Collectors.toList());
+    	  list.clear();
+    	  list.addAll(Arrays.stream(land[i - 1]).boxed().collect(Collectors.toList()));
+   		  for(int j = 0; j < idxArr.length;j++) {
+   			  listTemp.clear();
+   			  listTemp.addAll(list);
+   			  listTemp.set(idxArr[j], -1);
+   			  max = Collections.max(listTemp);
+   			  land[i][j] += max;
+    	  }
+   		  if(i == land.length - 1) {
+   			idxArr = land[i];
+   		  }
+      }
+      Arrays.sort(idxArr);
+      answer = idxArr[idxArr.length - 1];
+      return answer;
 	}
 }
