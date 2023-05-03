@@ -66,23 +66,22 @@ public class level2_047 {
     	}
         System.out.println(list);
         char[] charArr = {};
+        char[] charTempArr = {};
         char temp = ' ';
-        for(int o = 0; o < list.size(); o++) {
+        for(int o = n; o >= 0; o--) {
         	x = Integer.valueOf(list.get(o).substring(0,1)).intValue();
         	y = Integer.valueOf(list.get(o).substring(2,3)).intValue();
-        	x = x == 0 ? x : x - 1;
-        	if(o % 2 == 0) {
+        	if(x != 0) {
+        		charTempArr = board[x-1].toCharArray();
         		charArr = board[x].toCharArray();
-        		temp = charArr[y];
-        		charArr[y] = '0';
-        		board[x] = new String(charArr);
-        	} else {
-        		charArr = board[x].toCharArray();
+        		temp = charTempArr[y];
+        		charTempArr[y] = ' ';
         		charArr[y] = temp;
+        		board[x-1] = new String(charTempArr);
         		board[x] = new String(charArr);
         	}
-    		System.out.println(Arrays.toString(charArr));
     	}
+        System.out.println(Arrays.toString(board));
         return answer;
 	}
 }
