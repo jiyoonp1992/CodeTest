@@ -8,9 +8,9 @@ public class level2_047 {
 	//[1차] 프렌즈4블록
 	public static void main(String[] args) {
 		//String[] str = {"TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ"};
-		String[] str = {"AA", "AA", "CC", "AA", "AA", "DD"};
+		String[] str = {"AAAAAAAAAAAAAAAAAAAA","AUUUAAAAAAAUUUAAAAAA","AUUAAAAAAAAUUAAAAAAA","AAAAAAAAAAAAAAAAAAAA"};
 		//System.out.println(solution(5,5,str));
-		System.out.println(solution(6,2,str));
+		System.out.println(solution(4,20,str));
 		//System.out.println(Arrays.toString(solution()));
 	}
 	
@@ -39,6 +39,72 @@ public class level2_047 {
 //        	System.out.println(y);
 //        //}
 //        
+//        return answer;
+		
+//		int answer = 0;
+//        List<int[]> list = new ArrayList<>();
+//        int[] intNum = new int[2];
+//        int x = 0, y = 0;
+//        for(int z = 0; z < 1;) {
+//        	for(int i = 0; i < m - 1; i++) {
+//        		for(int j = 0; j < n - 1; j++) {
+//        			if(board[i].charAt(j) != ' ' && board[i].charAt(j) == board[i].charAt(j + 1) && board[i].charAt(j) == board[i + 1].charAt(j) && board[i].charAt(j) == board[i + 1].charAt(j + 1)) {
+//        				intNum[0] = i;
+//    					intNum[1] = j;
+//        				if(!list.contains(intNum)) {
+//        					intNum[0] = i;
+//        					intNum[1] = j;
+//        					list.add(intNum);
+//        					answer++;
+//        				}
+//        				intNum[0] = i + 1;
+//        				intNum[1] = j;
+//        				if(!list.contains(intNum)) {
+//        					list.add(intNum);
+//        					answer++;
+//        				}
+//        				intNum[0] = i;
+//        				intNum[1] = j + 1;
+//        				if(!list.contains(intNum)) {
+//        					list.add(intNum);
+//        					answer++;
+//        				}
+//        				intNum[0] = i + 1;
+//        				intNum[1] = j + 1;
+//        				if(!list.contains(intNum)) {
+//        					list.add(intNum);
+//        					answer++;
+//        				}
+//        			} else {
+//        				z = 1;
+//        			}
+//        		}
+//        	}
+//        	char[] charArr = {};
+//        	char[] charTempArr = {};
+//        	char temp = ' ';
+//        	for(int o = 0; o < list.size(); o++) {
+//        		x = list.get(o)[0];
+//        		y = list.get(o)[1];
+//        		for(;x >= 0;x--) {
+//        			if(x != 0) {
+//        				charTempArr = board[x-1].toCharArray();
+//        				charArr = board[x].toCharArray();
+//        				temp = charTempArr[y];
+//        				charTempArr[y] = ' ';
+//        				charArr[y] = temp;
+//        				board[x-1] = new String(charTempArr);
+//        				board[x] = new String(charArr);
+//        			} else {
+//        				charTempArr = board[x].toCharArray();
+//        				charTempArr[y] = ' ';
+//        				board[x] = new String(charTempArr);
+//        			}
+//        		}
+//        		z = 0;
+//        	}
+//        	list.clear();
+//        }
 //        return answer;
 		
         int answer = 0;
@@ -73,9 +139,11 @@ public class level2_047 {
         	char[] charTempArr = {};
         	char temp = ' ';
         	for(int o = 0; o < list.size(); o++) {
-        		x = Integer.valueOf(list.get(o).substring(0,1)).intValue();
-        		y = Integer.valueOf(list.get(o).substring(2,3)).intValue();
-        		for(;x > 0;x--) {
+//        		x = Integer.valueOf(list.get(o).substring(0,list.get(o).indexOf('/'))).intValue();
+        		x = Integer.valueOf(list.get(o).substring(0,list.get(o).indexOf('/'))).intValue();
+//        		y = Integer.valueOf(list.get(o).substring(list.get(o).indexOf('/') + 1,3)).intValue();
+        		y = Integer.valueOf(list.get(o).substring(list.get(o).indexOf('/') + 1,list.get(o).length())).intValue();
+        		for(;x >= 0;x--) {
         			if(x != 0) {
         				charTempArr = board[x-1].toCharArray();
         				charArr = board[x].toCharArray();
