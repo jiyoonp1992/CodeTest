@@ -3,18 +3,60 @@ package Level2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class level2_048 {
 	//뒤에 있는 큰 수 찾기
 	public static void main(String[] args) {
-		int[] num = {9, 1, 5, 3, 6, 2};
+		//int[] num = {9, 1, 5, 3, 6, 2};
+		int[] num = {8, 1, 2, 9};
 		//System.out.println(solution());
 		System.out.println(Arrays.toString(solution(num)));
 	}
 	
 	public static int[] solution(int[] numbers) {
+		int[] answer = {};
+		int[] chNum = {};
+		chNum = Arrays.copyOf(numbers, numbers.length);
+		answer = new int[numbers.length];
+		answer[numbers.length - 1] = -1;
+		int cnt = numbers.length - 1;
+		Arrays.sort(chNum);
+		for(int i = 0; i < numbers.length - 1; i++) {
+			if(numbers[i] == chNum[cnt]) {
+				answer[i] = -1;
+				cnt--;
+			} else {
+				for(int j = i + 1; j < numbers.length; j++) {
+					if(numbers[i] < numbers[j]) {
+						answer[i] = numbers[j];
+						break;
+					}
+				}
+			}
+		}
+		return answer;
+		
+//		int[] answer = {};
+//		int[] chNum = {};
+//		chNum = Arrays.copyOf(numbers, numbers.length);
+//		answer = new int[numbers.length];
+//		int cnt = numbers.length - 1;
+//		Arrays.sort(chNum);
+//		for(int i = 0; i < numbers.length; i++) {
+//			for(int j = i; j < numbers.length; j++) {
+//				if(numbers[i] < numbers[j]) {
+//					answer[i] = numbers[j];
+//					break;
+//				} else {
+//					answer[i] = -1;
+//				}
+//			}
+//		}
+//		return answer;
+		
 //        int[] answer = {};
 //        int[] reNum = {};
 //        reNum = Arrays.copyOf(numbers, numbers.length);
@@ -55,24 +97,5 @@ public class level2_048 {
 //        	check = Arrays.binarySearch(answer, 0);
 //        }
 //        return answer;
-		
-		int[] answer = {};
-		answer = new int[numbers.length];
-		Map<Integer, List<Integer>> map = new HashMap<>();
-		List<Integer> inList = new ArrayList<>();
-		for(int i = 0; i < numbers.length;i++) {
-			if(!map.containsKey(numbers[i])) {
-				inList.add(i);
-				map.put(numbers[i], inList);
-			} else {
-				inList.get(numbers[i]);
-				inList.add(i);
-				map.put(numbers[i], inList);
-			}
-			System.out.println(map);
-			inList.clear();
-			System.out.println(inList);
-		}
-		return answer;
 	}
 }
