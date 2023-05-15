@@ -2,11 +2,10 @@ package Level2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class level2_048 {
 	//뒤에 있는 큰 수 찾기
@@ -20,23 +19,48 @@ public class level2_048 {
 	public static int[] solution(int[] numbers) {
 		int[] answer = {};
 		answer = new int[numbers.length];
-		Arrays.fill(answer, -1);
-		Stack<Integer> stack = new Stack<>();
-		for (int i = 0; i < numbers.length - 1; i++) {
-			stack.add(i);
-			for(int j = i + 1; j < numbers.length; j++) {
-				if(numbers[i] == numbers[j]) {
-					stack.add(j);
-				} else if(numbers[i] < numbers[j]) {
-					while(!stack.isEmpty()) {
-						answer[stack.pop()] = numbers[j];
+		List<Integer> list = new LinkedList();
+		List<Integer> reList = new LinkedList();
+		list = Arrays.stream(numbers).boxed().collect(Collectors.toList()); 
+		reList = Arrays.stream(numbers).boxed().collect(Collectors.toList());
+		Collections.sort(reList, Collections.reverseOrder());
+		int cnt = 0;
+		for(int i = 0; i < numbers.length; i++) {
+			if (numbers[i] >= reList.get(cnt) || i + 1 == numbers.length) {
+				answer[i] = -1;
+			} else {
+				while(answer[i] == 0) {
+					System.out.println(Arrays.toString(answer));
+					for(int j = i + 1; j < numbers.length; j++) {
+						if(numbers[i] < numbers[j]) {
+							answer[i] = numbers[i];
+						}
 					}
-					break;
 				}
 			}
-			stack.clear();
 		}
 		return answer;
+		//=====================================================
+//		int[] answer = {};
+//		answer = new int[numbers.length];
+//		Arrays.fill(answer, -1);
+//		Stack<Integer> stack = new Stack<>();
+//		for (int i = 0; i < numbers.length - 1; i++) {
+//			stack.add(i);
+//			for(int j = i + 1; j < numbers.length; j++) {
+//				if(numbers[i] == numbers[j]) {
+//					stack.add(j);
+//				} else if(numbers[i] < numbers[j]) {
+//					while(!stack.isEmpty()) {
+//						answer[stack.pop()] = numbers[j];
+//					}
+//					break;
+//				}
+//			}
+//			stack.clear();
+//		}
+//		return answer;
+		//=====================================================
 //		int[] answer = {};
 //		int[] chNum = {};
 //		chNum = Arrays.copyOf(numbers, numbers.length);
@@ -58,7 +82,7 @@ public class level2_048 {
 //			}
 //		}
 //		return answer;
-		
+		//=====================================================
 //		int[] answer = {};
 //		int[] chNum = {};
 //		chNum = Arrays.copyOf(numbers, numbers.length);
@@ -76,7 +100,7 @@ public class level2_048 {
 //			}
 //		}
 //		return answer;
-		
+		//=====================================================
 //        int[] answer = {};
 //        int[] reNum = {};
 //        reNum = Arrays.copyOf(numbers, numbers.length);
