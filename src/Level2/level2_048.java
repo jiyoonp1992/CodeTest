@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class level2_048 {
 	//뒤에 있는 큰 수 찾기
 	public static void main(String[] args) {
-		int[] num = {9, 1, 5, 3, 6, 2};
-		//int[] num = {8, 1, 2, 9};
+		//int[] num = {9, 1, 5, 3, 6, 2};
+		int[] num = {8, 1, 2, 9};
 		//System.out.println(solution());
 		System.out.println(Arrays.toString(solution(num)));
 	}
@@ -19,27 +19,56 @@ public class level2_048 {
 	public static int[] solution(int[] numbers) {
 		int[] answer = {};
 		answer = new int[numbers.length];
-		List<Integer> list = new LinkedList();
-		List<Integer> reList = new LinkedList();
-		list = Arrays.stream(numbers).boxed().collect(Collectors.toList()); 
-		reList = Arrays.stream(numbers).boxed().collect(Collectors.toList());
-		Collections.sort(reList, Collections.reverseOrder());
-		int cnt = 0;
-		for(int i = 0; i < numbers.length; i++) {
-			if (numbers[i] >= reList.get(cnt) || i + 1 == numbers.length) {
+		for(int i = numbers.length - 1; i >= 0; i--) {
+			if(i == numbers.length - 1) {
 				answer[i] = -1;
+			} else if(numbers[i] < numbers[i+1]) {
+				answer[i] = numbers[i+1];
+			} else if(numbers[i] == numbers[i+1]) {
+				answer[i] = answer[i +1];
 			} else {
-				while(answer[i] == 0) {
-					System.out.println(Arrays.toString(answer));
-					for(int j = i + 1; j < numbers.length; j++) {
-						if(numbers[i] < numbers[j]) {
-							answer[i] = numbers[i];
+				if(answer[i + 1] == -1) {
+					answer[i] = -1;
+				} else {
+					for(int j = i + 1; j < answer.length;j++) {
+						if(answer[j] == -1) {
+							answer[i] = -1;
+							break;
+						} else if(numbers[i] < answer[j]) {
+							answer[i] = answer[j];
+							break;
 						}
 					}
 				}
 			}
 		}
 		return answer;
+//		=====================================================
+//		int[] answer = {};
+//		answer = new int[numbers.length];
+//		List<Integer> list = new LinkedList();
+//		List<Integer> reList = new LinkedList();
+//		list = Arrays.stream(numbers).boxed().collect(Collectors.toList()); 
+//		reList = Arrays.stream(numbers).boxed().collect(Collectors.toList());
+//		Collections.sort(reList, Collections.reverseOrder());
+//		int cnt = 0;
+//		for(int i = 0; i < numbers.length; i++) {
+//			if (numbers[i] >= reList.get(cnt) || i + 1 == numbers.length) {
+//				answer[i] = -1;
+//				cnt++;
+//			} else {
+//				while(true) {
+//					for(int j = i + 1; j < numbers.length; j++) {
+//						if(numbers[i] < numbers[j]) {
+//							answer[i] = numbers[i];
+//							break;
+//						}
+//					}
+//					break;
+//				}
+//			}
+//		}
+//		return answer;
 		//=====================================================
 //		int[] answer = {};
 //		answer = new int[numbers.length];
