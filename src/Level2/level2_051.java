@@ -1,6 +1,10 @@
 package Level2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class level2_051 {
 	//숫자 변환하기
@@ -11,32 +15,106 @@ public class level2_051 {
 	
 	public static int solution(int x, int y, int n) {
 		int answer = 0;
-		int i = y, j = y, k = y;
+		int maxCheck = 0;
 		
+		List<Long> list01 = new ArrayList<Long>();
+		List<Long> list02 = new ArrayList<Long>();
+		
+		list01.add((long) y);
 		if(x == y) {
 			answer = 0;
 		} else {
-			for(;;) {
-				if(i > x) {
-					i -= n;
-				}
-				if(y%2 == 0 && j > x) {
-					j /= 2;
-				}
-				if(y%3 == 0 && k > x) {
-					k /= 3;
-				}
-				answer++;
-				if(i == x || j == x || k == x) {
-					break;
-				} else if(i <= x && (y%2 != 0 || j <= x) && (y%3 != 0 || k <= x)) {
-					answer = -1;
-					break;
+			for(int i = 0; i <= list01.size(); i++) {
+				System.out.println(list01);
+				System.out.println(list02);
+				System.out.println(maxCheck);
+				System.out.println(list01.size());
+				if(i == list01.size()) {
+					i = -1;
+					if(maxCheck == list02.size()) {
+						answer = -1;
+						break;
+					}
+					list01.clear();
+					list01.addAll(list02);
+					list02.clear();
+					maxCheck = 0;
+					answer++;
+				} else {
+					maxCheck++;
+					if(list01.get(i) - n > x) {
+						list02.add(list01.get(i) - n);
+					} else if(list01.get(i) - n == x) {
+						answer++;
+						break;
+					}
+					
+					if(list01.get(i) % 2 == 0 && list01.get(i) / 2 > x) {
+						list02.add(list01.get(i) / 2);
+					} else if(list01.get(i) / 2 == x) {
+						answer++;
+						break;
+					}
+					
+					if(list01.get(i) % 3 == 0 && list01.get(i) / 3 > x) {
+						list02.add(list01.get(i) / 3);
+					} else if(list01.get(i) / 3 == x) {
+						answer++;
+						break;
+					}
 				}
 			}
 		}
-		
 		return answer;
+		
+//		int answer = 0;
+//		int maxCheck = 0;
+//		
+//		List<Long> list01 = new ArrayList<Long>();
+//		List<Long> list02 = new ArrayList<Long>();
+//		
+//		list01.add((long) x);
+//		if(x == y) {
+//			answer = 0;
+//		} else {
+//			for(int i = 0; i <= list01.size(); i++) {
+//				if(i == list01.size()) {
+//					i = -1;
+//					if(maxCheck == list02.size()) {
+//						answer = -1;
+//						break;
+//					}
+//					list01.clear();
+//					list01.addAll(list02);
+//					list02.clear();
+//					maxCheck = 0;
+//					answer++;
+//				} else {
+//					maxCheck++;
+//					if(list01.get(i) + n < y) {
+//						list02.add(list01.get(i) + n);
+//					} else if(list01.get(i) + n == y) {
+//						answer++;
+//						break;
+//					}
+//					
+//					if(list01.get(i) * 2 < y) {
+//						list02.add(list01.get(i) * 2);
+//					} else if(list01.get(i) * 2 == y) {
+//						answer++;
+//						break;
+//					}
+//					
+//					if(list01.get(i) * 3 < y) {
+//						list02.add(list01.get(i) * 3);
+//					} else if(list01.get(i) * 3 == y) {
+//						answer++;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//		return answer;
 		
 //		int answer = 0;
 //		int i = x, j = x, k = x;
