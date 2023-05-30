@@ -20,15 +20,12 @@ public class level2_051 {
 		List<Long> list01 = new ArrayList<Long>();
 		List<Long> list02 = new ArrayList<Long>();
 		
-		list01.add((long) y);
 		if(x == y) {
 			answer = 0;
 		} else {
+			list01.add((long) y);
 			for(int i = 0; i <= list01.size(); i++) {
-				System.out.println(list01);
-				System.out.println(list02);
-				System.out.println(maxCheck);
-				System.out.println(list01.size());
+				maxCheck = 0;
 				if(i == list01.size()) {
 					i = -1;
 					if(maxCheck == list02.size()) {
@@ -38,28 +35,37 @@ public class level2_051 {
 					list01.clear();
 					list01.addAll(list02);
 					list02.clear();
-					maxCheck = 0;
 					answer++;
 				} else {
-					maxCheck++;
 					if(list01.get(i) - n > x) {
 						list02.add(list01.get(i) - n);
 					} else if(list01.get(i) - n == x) {
 						answer++;
 						break;
+					} else {
+						maxCheck++;
 					}
 					
 					if(list01.get(i) % 2 == 0 && list01.get(i) / 2 > x) {
 						list02.add(list01.get(i) / 2);
-					} else if(list01.get(i) / 2 == x) {
+					} else if(list01.get(i) % 2 == 0 && list01.get(i) / 2 == x) {
 						answer++;
 						break;
+					} else {
+						maxCheck++;
 					}
 					
 					if(list01.get(i) % 3 == 0 && list01.get(i) / 3 > x) {
 						list02.add(list01.get(i) / 3);
-					} else if(list01.get(i) / 3 == x) {
+					} else if(list01.get(i) % 3 == 0 && list01.get(i) / 3 == x) {
 						answer++;
+						break;
+					} else {
+						maxCheck++;
+					}
+					
+					if(maxCheck == 3) {
+						answer = -1;
 						break;
 					}
 				}
