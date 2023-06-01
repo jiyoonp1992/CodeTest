@@ -1,9 +1,14 @@
 package Level2;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class level2_053 {
 	//롤케이크 자르기
@@ -14,35 +19,36 @@ public class level2_053 {
 	}
 	
 	public static int solution(int[] topping) {
-		int answer = -1;
-		Map<Integer, Integer> mapSt = new HashMap<>();
-		Map<Integer, Integer> mapEn = new HashMap<>();
-		Queue<Integer> stQu = new LinkedList<>();
-		Queue<Integer> enQu = new LinkedList<>();
-		int stCnt = 0, enCnt = 0;
+		int answer = 0;
+		List<String> list01 = new ArrayList<>();
+		Set<String> setList01 = new LinkedHashSet<>();
+		Set<Integer> setList02 = new LinkedHashSet<>();
+		list01 = Arrays.stream(topping).mapToObj(String::valueOf).collect(Collectors.toList());
 		for(int i = 0; i < topping.length; i++) {
-			if(!stQu.contains(topping[i])) {
-				stCnt++;
-				stQu.add(stCnt);
-			}
-			if(!enQu.contains(topping[topping.length - 1 - i])) {
-				enCnt++;
-				enQu.add(enCnt);
-			}
-		}
-		System.out.println(stQu);
-		System.out.println(enQu);
-		System.out.println("=======================");
-		enQu.add(enQu.poll());
-		answer = 0;
-		System.out.println(stQu);
-		System.out.println(enQu);
-		while(!stQu.isEmpty()) {
-			if(stQu.poll() == enQu.poll()) {
+			setList02.add(topping[i]);
+			list01.remove(String.valueOf(topping[i]));
+			setList01 = new LinkedHashSet<>(list01);
+			if(setList01.size() == setList02.size()) {
 				answer++;
 			}
 		}
 		return answer;
+		
+		
+//		int answer = 0;
+//		List<Integer> list01 = new ArrayList<>();
+//		Set<Integer> setList01 = new LinkedHashSet<>();
+//		Set<Integer> setList02 = new LinkedHashSet<>();
+//		list01 = Arrays.stream(topping).boxed().collect(Collectors.toList());
+//		for(int i = 0; i < topping.length; i++) {
+//			setList02.add(topping[i]);
+//			list01.remove(list01.indexOf(topping[i]));
+//			setList01 = new LinkedHashSet<>(list01);
+//			if(setList01.size() == setList02.size()) {
+//				answer++;
+//			}
+//		}
+//		return answer;
 		
 //        int answer = -1;
 //        Map<Integer, Integer> mapSt = new HashMap<>();
