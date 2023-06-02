@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class level2_053 {
@@ -20,15 +21,21 @@ public class level2_053 {
 	
 	public static int solution(int[] topping) {
 		int answer = 0;
-		List<String> list01 = new ArrayList<>();
-		Set<String> setList01 = new LinkedHashSet<>();
-		Set<Integer> setList02 = new LinkedHashSet<>();
-		list01 = Arrays.stream(topping).mapToObj(String::valueOf).collect(Collectors.toList());
+		int x = 0, y = 0, z = 0;
+		List<Integer> list01 = new LinkedList<Integer>();
+		Set<Integer> set01 = new HashSet<>();
+		y = (int) Arrays.stream(topping).distinct().count();
 		for(int i = 0; i < topping.length; i++) {
-			setList02.add(topping[i]);
-			list01.remove(String.valueOf(topping[i]));
-			setList01 = new LinkedHashSet<>(list01);
-			if(setList01.size() == setList02.size()) {
+			z = topping[i];
+			if(!set01.contains(z)) {
+				set01.add(z);
+				x++;
+			}
+			topping[i] = 0;
+			if(!Arrays.asList(topping).contains(z)) {
+				y--;
+			}
+			if(x == y) {
 				answer++;
 			}
 		}
