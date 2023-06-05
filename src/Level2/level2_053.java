@@ -1,14 +1,12 @@
 package Level2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class level2_053 {
@@ -21,25 +19,86 @@ public class level2_053 {
 	
 	public static int solution(int[] topping) {
 		int answer = 0;
-		int x = 0, y = 0, z = 0;
-		List<Integer> list01 = new LinkedList<Integer>();
-		Set<Integer> set01 = new HashSet<>();
-		y = (int) Arrays.stream(topping).distinct().count();
+		Set<Integer> setLe = new HashSet<>();
+		List<Integer> list = new LinkedList<>();
+		Map<Integer, Integer> map = new HashMap<>();
+		int x = 0, y = 0;
 		for(int i = 0; i < topping.length; i++) {
-			z = topping[i];
-			if(!set01.contains(z)) {
-				set01.add(z);
-				x++;
+			if(map.containsKey(topping[i])) {
+				map.put(topping[i],map.get(topping[i]) + 1);
+			} else {
+				map.put(topping[i],1);
 			}
-			topping[i] = 0;
-			if(!Arrays.asList(topping).contains(z)) {
+		}
+		y = map.size();
+		for(int j = 0; j < topping.length; j++) {
+			setLe.add(topping[j]);
+			if(map.get(topping[j]) > 1) {
+				map.put(topping[j],map.get(topping[j]) - 1);
+			} else {
 				y--;
 			}
-			if(x == y) {
+			if(setLe.size() == y) {
 				answer++;
 			}
 		}
 		return answer;
+		
+//		int answer = 0;
+//		Set<Integer> setLe = new HashSet<>();
+//		List<Integer> list = new LinkedList<>();
+//		list = Arrays.stream(topping).boxed().collect(Collectors.toList());
+//		int x = 0, y = 0;
+//		y = (int) Arrays.stream(topping).distinct().count();
+//		for(int i = 0; i < list.size();) {
+//			x = list.get(i);
+//			setLe.add(x);
+//			list.remove(i);
+//			if(!list.contains(x)) {
+//				y--;
+//			}
+//			if(setLe.size() == y) {
+//				answer++;
+//			}
+//		}
+//		return answer;
+		
+		
+//		int answer = 0;
+//		Set<Integer> setLe = new HashSet<>();
+//		Set<Integer> setRi = new HashSet<>();
+//		Map<Integer, String> map = new HashMap<>();
+//		int x = topping.length;
+//		for(int i = 0; i < topping.length; i++) {
+//			setLe.add(topping[i]);
+//			setRi.add(topping[x - 1 - i]);
+//			if(map.containsKey(setLe.size())) {
+//				if(map.get(setLe.size()).contains((i + 1) + "/")) {
+//					answer++;
+//				} else {
+//					map.put(setLe.size(), map.get(setLe.size()) + (i + 1) + "/");
+//				}
+//			} else {
+//				map.put(setLe.size(), (i + 1) + "/");
+//			}
+//			
+//			if(map.containsKey(setRi.size())) {
+//				if(map.get(setRi.size()).contains((x - 1 - i) + "/")) {
+//					answer++;
+//				} else {
+//					map.put(setRi.size(), map.get(setRi.size()) + (x - 1 - i) + "/");
+//				}
+//			} else {
+//				map.put(setRi.size(), (x - 1 - i) + "/");
+//			}
+//			System.out.println(map);
+//			System.out.println(setLe.size());
+//			System.out.println(i + "/");
+//			System.out.println(setRi.size());
+//			System.out.println((x - 1 - i) + "/");
+//			System.out.println(answer);
+//		}
+//		return answer;
 		
 		
 //		int answer = 0;
