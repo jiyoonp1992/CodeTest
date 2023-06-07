@@ -5,51 +5,101 @@ import java.util.Arrays;
 public class level2_054 {
 	//가장 큰 수
 	public static void main(String[] args) {
-		//System.out.println(solution());
+		int[] str = {40, 403};
+		System.out.println(solution(str));
 		//System.out.println(Arrays.toString(solution()));
 	}
 	
 	public static String solution(int[] numbers) {
         String answer = "";
-        Integer[] numArr = Arrays.stream(numbers).boxed().toArray(Integer[]::new);
-        Arrays.sort(numArr, (x , y) -> {
-        	String xStr = String.valueOf(x);
-        	String yStr = String.valueOf(y);
-        	if(xStr.length() == yStr.length()) {
-        		if (x < y) {
-                    return -1;
-                } else if (x > y) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-        	} else if(xStr.length() > yStr.length()) {
-        		for(int i = 0; i < xStr.length(); i++) {
-        			
+        String[] strArr = Arrays.stream(numbers).mapToObj(String::valueOf).toArray(String[]::new);
+        Arrays.sort(strArr, (x , y) -> {
+        	if(x.length() == y.length()) {
+        		if(x.compareTo(y) <= 0) {
+        			return 1;
+        		} else {
+        			return -1;
+        		}
+        	} else if(x.length() > y.length()) {
+        		if((x.substring(0, y.length())).compareTo(y) == 0) {
+        			if((x.substring(y.length(), x.length())).length() > y.length()){
+        				if((x.substring(y.length(), y.length() + y.length())).compareTo(y) <= 0) {
+        					return 1;
+        				} else {
+        					return -1;
+        				}
+        			} else {
+        				for(int i = 0; i < (x.substring(y.length(), x.length())).length();i++) {
+        					if((x.substring(y.length(), x.length())).charAt(i) < y.charAt(i)) {
+        						return 1;
+            				} else if ((x.substring(y.length(), x.length())).charAt(i) > y.charAt(i)) {
+            					return -1;
+        					}
+        				}
+        				return 0;
+        			}
+        		} else if((x.substring(0, y.length())).compareTo(y) < 0) {
+        			return 1;
+        		} else {
+        			return -1;
         		}
         	} else {
-        		for(int i = 0; i < xStr.length(); i++) {
-        			
+        		if((y.substring(0, x.length())).compareTo(x) == 0) {
+        			if((y.substring(x.length(), y.length())).length() > x.length()){
+        				if((y.substring(x.length(), x.length() + x.length())).compareTo(x) <= 0) {
+        					return -1;
+        				} else {
+        					return 1;
+        				}
+        			} else {
+        				for(int i = 0; i < (x.substring(y.length(), x.length())).length();i++) {
+        					if((x.substring(y.length(), x.length())).charAt(i) < y.charAt(i)) {
+        						return 1;
+            				} else if ((x.substring(y.length(), x.length())).charAt(i) > y.charAt(i)) {
+            					return -1;
+        					}
+        				}
+        				return 0;
+        			}
+        		} else if((y.substring(0, x.length())).compareTo(x) < 0) {
+        			return -1;
+        		} else {
+        			return 1;
         		}
         	}
         });
-        
-//        Arrays.sort(files, (iStr, jStr) -> {
-//        	String[] iStrArr = ((String) iStr).split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-//        	String[] jStrArr = ((String) jStr).split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-//        	int cnt = iStrArr[0].compareToIgnoreCase(jStrArr[0]);
-//        	int iNum = iStrArr[1].length() <= 5 ? Integer.valueOf(iStrArr[1]).intValue() : Integer.valueOf(iStrArr[1].substring(0, 5)).intValue();
-//			int jNum = jStrArr[1].length() <= 5 ? Integer.valueOf(jStrArr[1]).intValue() : Integer.valueOf(jStrArr[1].substring(0, 5)).intValue();
-//        	if (cnt == 0) {
-//        		if(iNum == jNum) {
-//        			return 0;
-//        		}
-//                return iNum - jNum;
-//            }
-//            return cnt;
-//        });
-        
-        
+        answer = Arrays.toString(strArr).replace("[", "").replace("]", "").replace(", ", "");
+        if(Integer.valueOf(answer).intValue() == 0) {
+        	answer = "0";
+        }
         return answer;
+		
+//        String answer = "";
+//        Integer[] numArr = Arrays.stream(numbers).boxed().toArray(Integer[]::new);
+//        String[] strArr1 = Arrays.stream(numbers).mapToObj(String::valueOf).toArray(String[]::new);
+//        Arrays.sort(numArr, (x , y) -> {
+//        	System.out.println(Arrays.toString(numArr));
+//        	String xStr = String.valueOf(x);
+//        	String yStr = String.valueOf(y);
+//        	System.out.println(xStr);
+//        	System.out.println(yStr);
+//        	if((xStr + yStr).compareTo(yStr + xStr) < 0) {
+//        		return 1;
+//        	} else {
+//        		return -1;
+//        	}
+//        });
+//        Arrays.sort(strArr, (x , y) -> {
+//        	if((x + y).compareTo(y + x) <= 0) {
+//        		return 1;
+//        	} else {
+//        		return -1;
+//        	}
+//        });
+//        answer = Arrays.toString(strArr).replace("[", "").replace("]", "").replace(", ", "");
+//        if(Integer.valueOf(answer).intValue() == 0) {
+//        	answer = "0";
+//        }
+//        return answer;
+        }
 	}
-}
