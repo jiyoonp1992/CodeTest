@@ -11,54 +11,87 @@ public class level2_056 {
 		System.out.println(Arrays.toString(solution(num)));
 	}
 	
+	static void compress(int[][] arr, int startX, int startY, int size, int[] answer) {
+        int initValue = arr[startX][startY];
+        boolean isCompressed = true;
+        
+        // 압축 가능한지 확인
+        for (int i = startX; i < startX + size; i++) {
+            for (int j = startY; j < startY + size; j++) {
+                if (arr[i][j] != initValue) {
+                    isCompressed = false;
+                    break;
+                }
+            }
+        }
+        
+        // 압축된 숫자인 경우
+        if (isCompressed) {
+            answer[initValue]++;
+            return;
+        }
+        
+     // 4등분하여 재귀적으로 압축
+        int newSize = size / 2;
+        compress(arr, startX, startY, newSize, answer);
+        compress(arr, startX, startY + newSize, newSize, answer);
+        compress(arr, startX + newSize, startY, newSize, answer);
+        compress(arr, startX + newSize, startY + newSize, newSize, answer);
+	}
+	
 	public static int[] solution(int[][] arr) {
-		int[] answer = {};
-		boolean[][] bCheck = {};
-		int x = arr.length, cnt = 0;
-		answer = new int[2];
-		bCheck = new boolean[x][x];
-		Set<Integer> set = new HashSet<>();
-		int num = 0;
-		while(num < 100) {
-			for(int i = 0; i < arr.length; i++) {
-				for(int j = 0; j < arr.length; j++) {
-					Arrays.toString(bCheck[i]);
-					if(bCheck[i][j] != true) {
-						for(int k = 0; cnt < x/2;k++) {
-							set.add(arr[i][j]);
-							set.add(arr[i][j+k]);
-							set.add(arr[i+k][j]);
-							set.add(arr[i+k][j+k]);
-							System.out.println("arr[" + i + "][" + j +"] = " + arr[i][j]);
-							System.out.println("arr[" + i + "][" + (j + k) +"] = " + arr[i][j + k]);
-							System.out.println("arr[" + (i + k) + "][" + j +"] = " + arr[i + k][j]);
-							System.out.println("arr[" + (i + k) + "][" + (j + k) +"] = " + arr[i + k][j + k]);
-							cnt++;
-							System.out.println("set = " + set);
-							System.out.println("set size = " + set.size());
-							System.out.println("cnt = " + cnt);
-							if(set.size() != 1) {
-								j = x/2 - 1;
-								set.clear();
-								cnt = 0;
-								break;
-							}
-							
-							if(set.size() == 1 && cnt == x /2) {
-								bCheck[i][j] = true;
-								bCheck[i][j+k] = true;
-								bCheck[i+k][j] = true;
-								bCheck[i+k][j+k] = true;
-								answer[set.iterator()]++;
-							}
-						}
-					} else {
-						break;
-					}
-				}
-			}
-			num++;
-		}
+	        
+		int[] answer = new int[2];
+        compress(arr, 0, 0, arr.length, answer);
+        return answer;
+        
+//		int[] answer = {};
+//		boolean[][] bCheck = {};
+//		int x = arr.length, cnt = 0;
+//		answer = new int[2];
+//		bCheck = new boolean[x][x];
+//		Set<Integer> set = new HashSet<>();
+//		int num = 0;
+//		while(num < 100) {
+//			for(int i = 0; i < arr.length; i++) {
+//				for(int j = 0; j < arr.length; j++) {
+//					Arrays.toString(bCheck[i]);
+//					if(bCheck[i][j] != true) {
+//						for(int k = 0; cnt < x/2;k++) {
+//							set.add(arr[i][j]);
+//							set.add(arr[i][j+k]);
+//							set.add(arr[i+k][j]);
+//							set.add(arr[i+k][j+k]);
+//							System.out.println("arr[" + i + "][" + j +"] = " + arr[i][j]);
+//							System.out.println("arr[" + i + "][" + (j + k) +"] = " + arr[i][j + k]);
+//							System.out.println("arr[" + (i + k) + "][" + j +"] = " + arr[i + k][j]);
+//							System.out.println("arr[" + (i + k) + "][" + (j + k) +"] = " + arr[i + k][j + k]);
+//							cnt++;
+//							System.out.println("set = " + set);
+//							System.out.println("set size = " + set.size());
+//							System.out.println("cnt = " + cnt);
+//							if(set.size() != 1) {
+//								j = x/2 - 1;
+//								set.clear();
+//								cnt = 0;
+//								break;
+//							}
+//							
+//							if(set.size() == 1 && cnt == x /2) {
+//								bCheck[i][j] = true;
+//								bCheck[i][j+k] = true;
+//								bCheck[i+k][j] = true;
+//								bCheck[i+k][j+k] = true;
+//								answer[set.iterator()]++;
+//							}
+//						}
+//					} else {
+//						break;
+//					}
+//				}
+//			}
+//			num++;
+//		}
 		
 //        int[] answer = {};
 //        answer = new int[2];
@@ -146,6 +179,5 @@ public class level2_056 {
 //        		
 //        	}
 //        }
-        return answer;
 	}
 }
