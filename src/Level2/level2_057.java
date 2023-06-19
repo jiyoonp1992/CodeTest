@@ -9,29 +9,53 @@ import java.util.stream.Collectors;
 public class level2_057 {
 	//큰 수 만들기
 	public static void main(String[] args) {
-		System.out.println(solution("1231234", 3));
+		System.out.println(solution("654321", 5));
 		//System.out.println(Arrays.toString(solution()));
 	}
 	
 	public static String solution(String number, int k) {
 		String answer = "";
 		StringBuffer sb = new StringBuffer();
-		int cnt = number.length() - k;
-		int i = 0;
+		int sumCnt = 0;
 		sb.append(number);
-		while(cnt != sb.length()) {
-			if(i < sb.length() - 1) {
-				if(sb.charAt(i) < sb.charAt(i + 1)) {
-					sb.deleteCharAt(i);
+		boolean st = true;
+		while(st) {
+			for(int i = 0; i < sb.length();i++) {
+				System.out.println(sb);
+				if(i < sb.length() - 1) {
+					if(sb.charAt(i) < sb.charAt(i + 1)) {
+						sb.deleteCharAt(i);
+						k--;
+						i--;
+						sumCnt = 0;
+					} else if(sb.charAt(i) > sb.charAt(i + 1)) {
+						if(i < sb.length() - 2) {
+							if(sb.charAt(i + 1) < sb.charAt(i + 2)) {
+								sumCnt = 0;
+								sb.deleteCharAt(i + 1);
+								k--;
+								i--;
+							}
+						} else if(k == 1 && sb.charAt(i) > sb.charAt(i + 1)) {
+							sumCnt = 0;
+							sb.deleteCharAt(i + 1);
+							k--;
+						}
+					} else {
+						sumCnt++;
+					}
+				}
+				if(k == 0) {
+					answer = sb.toString();
+					st = false;
+					break;
+				}
+				if(sumCnt == number.length()) {
+					answer = sb.substring(0, sb.length()-k);
+					st = false;
+					break;
 				}
 			}
-			if(i < sb.length()) {
-				i++;
-			} else {
-				i = 0;
-			}
-			System.out.println("i = " + i);
-			System.out.println("sb = " + sb);
 		}
 		
 //        String answer = "";
