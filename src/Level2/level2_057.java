@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class level2_057 {
 	//큰 수 만들기
 	public static void main(String[] args) {
-		System.out.println(solution("54321", 2));
+		System.out.println(solution("321924", 2));
 		//System.out.println(Arrays.toString(solution()));
 	}
 	
@@ -20,54 +22,95 @@ public class level2_057 {
 		strArr = number.substring(0,k + 1).split("");
 		Arrays.sort(strArr);
 		if(strArr.length != 1) {
-			answer = number.substring(number.indexOf(strArr[strArr.length - 1]), number.indexOf(strArr[strArr.length - 1]) + 1);
-			sb.append(number.substring(number.indexOf(strArr[strArr.length - 1]), number.indexOf(strArr[strArr.length - 1]) + 1));
 			k = k - number.indexOf(strArr[strArr.length - 1]); 
-			sb.append(number.substring(number.indexOf(strArr[strArr.length - 1]) + 1));
-		} else {
-			sb.append(number);
+			sb.append(number.substring(number.indexOf(strArr[strArr.length - 1])));
+			number = number.substring(number.indexOf(strArr[strArr.length - 1]));
 		}
-		int sumCnt = 0;
-		boolean st = answer.length() == (sb.length() - k) ? false : true;
-		while(st) {
-			System.out.println(sb);
-			if(k == 0 || sb.length() == k) {
-				answer = sb.toString();
-				st = false;
-				break;
-			}
-			if(sumCnt == number.length()) {
-				answer = sb.substring(0, sb.length()-k);
-				st = false;
-				break;
-			}
-			
-			for(int i = 0; i < sb.length(); i++) {
-				if(i < sb.length() - 1) {
-					if(sb.charAt(i) < sb.charAt(i + 1)) {
-						sb.deleteCharAt(i);
-						k--;
-						i--;
-						sumCnt = 0;
-					} else if(sb.charAt(i) > sb.charAt(i + 1)) {
-						if(i < sb.length() - 2) {
-							if(sb.charAt(i + 1) < sb.charAt(i + 2)) {
-								sumCnt = 0;
-								sb.deleteCharAt(i + 1);
-								k--;
-								i--;
-							}
-						} else if(k == 1 && sb.charAt(i) > sb.charAt(i + 1)) {
-							sumCnt = 0;
-							sb.deleteCharAt(i + 1);
-							k--;
-						}
-					} else {
-						sumCnt++;
-					}
+		
+		int cnt = 0, exk = 0;
+		while(k > 0) {
+			exk = k;
+			cnt = 0;
+			for(int i = 0; i < sb.length() - 1;i++) {
+				System.out.println(sb);
+				if(sb.charAt(i) < sb.charAt(i + 1)) {
+					sb.deleteCharAt(i);
+					k--;
+					i -= 2;
+					cnt = 0;
+				} else if(sb.charAt(i) == sb.charAt(i + 1)) {
+					cnt++;
+				}
+				
+				if(i == sb.length() - 2 && exk == k) {
+					sb = new StringBuffer(sb.substring(0, sb.length() - k));
+					k = 0;
+					break;
+				} else if(k == 0) {
+					break;
+				} else if(cnt == sb.length()) {
+					k = 0;
+					break;
 				}
 			}
 		}
+		
+		answer = sb.toString();
+		
+//		String answer = "";
+//		String[] strArr = {};
+//		StringBuffer sb = new StringBuffer();
+//		strArr = number.substring(0,k + 1).split("");
+//		Arrays.sort(strArr);
+//		if(strArr.length != 1) {
+//			answer = number.substring(number.indexOf(strArr[strArr.length - 1]), number.indexOf(strArr[strArr.length - 1]) + 1);
+//			sb.append(number.substring(number.indexOf(strArr[strArr.length - 1]), number.indexOf(strArr[strArr.length - 1]) + 1));
+//			k = k - number.indexOf(strArr[strArr.length - 1]); 
+//			sb.append(number.substring(number.indexOf(strArr[strArr.length - 1]) + 1));
+//		} else {
+//			sb.append(number);
+//		}
+//		int sumCnt = 0;
+//		boolean st = answer.length() == (sb.length() - k) ? false : true;
+//		while(st) {
+//			System.out.println(sb);
+//			if(k == 0 || sb.length() == k) {
+//				answer = sb.toString();
+//				st = false;
+//				break;
+//			}
+//			if(sumCnt == number.length()) {
+//				answer = sb.substring(0, sb.length()-k);
+//				st = false;
+//				break;
+//			}
+//			
+//			for(int i = 0; i < sb.length(); i++) {
+//				if(i < sb.length() - 1) {
+//					if(sb.charAt(i) < sb.charAt(i + 1)) {
+//						sb.deleteCharAt(i);
+//						k--;
+//						i--;
+//						sumCnt = 0;
+//					} else if(sb.charAt(i) > sb.charAt(i + 1)) {
+//						if(i < sb.length() - 2) {
+//							if(sb.charAt(i + 1) < sb.charAt(i + 2)) {
+//								sumCnt = 0;
+//								sb.deleteCharAt(i + 1);
+//								k--;
+//								i--;
+//							}
+//						} else if(k == 1 && sb.charAt(i) > sb.charAt(i + 1)) {
+//							sumCnt = 0;
+//							sb.deleteCharAt(i + 1);
+//							k--;
+//						}
+//					} else {
+//						sumCnt++;
+//					}
+//				}
+//			}
+//		}
 		
 //		StringBuffer sb = new StringBuffer();
 //		boolean st = sb.length() == (number.length() - k) ? false : true;
