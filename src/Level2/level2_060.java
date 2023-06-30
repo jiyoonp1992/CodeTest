@@ -5,10 +5,10 @@ import java.util.Arrays;
 public class level2_060 {
 	//124 나라의 숫자
 	public static void main(String[] args) {
-//		for(int i = 1; i <= 50; i++) {
-//			System.out.println(solution(i));
-//		}
-		System.out.println(solution(16));
+		for(int i = 1; i <= 40; i++) {
+			System.out.println(solution(i));
+		}
+		//System.out.println(solution(16));
 		//solution(7);
 		//System.out.println(Arrays.toString(solution()));
 	}
@@ -30,35 +30,27 @@ public class level2_060 {
         	n -= Math.pow(3, i);
         }
         
-        for(int j = 1; j <= x; j++) {
-        	System.out.println("j = " + j);
-        	System.out.println("x = " + x);
-        	System.out.println("n = " + n);
-        	System.out.println("answer = " + answer);
-        	if(j != x) {
-        		if(n <= Math.pow(3, x-1)) {
-        			answer += "1";
-        		} else if(Math.pow(3, x-1) < n && n <= 2 * Math.pow(3, x-1)) {
-        			answer += "2";
-        			n -= Math.pow(3, x-1);
-        		} else {
-        			answer += "4";
-        			n -= 2*Math.pow(3, x-1);
-        		}
+        for(int j = 1; x >= 1; j++) {
+        	if((n <= Math.pow(3, x-1))) {
+        		answer += "1";
+        	} else if((n > Math.pow(3, x-1) && 2 * Math.pow(3, x-1) >= n)) {
+        		answer += "2";
+        		n -= Math.pow(3, x-1);
         	} else {
+        		answer += "4";
+        		n -= 2 * Math.pow(3, x-1);
+        	}
+        	
+        	x--;
+        	if(x == 1) {
         		if(n == 1) {
         			answer += "1";
-        		}else if(n == 2) {
+        		} else if(n == 2){
         			answer += "2";
         		} else {
         			answer += "4";
         		}
-        	}
-        	x--;
-        	if(x - j == 1) {
-        		n -= 3;
-        	} else {
-        		n %= Math.pow(3, x-1);
+        		x--;
         	}
         }
         return answer;
