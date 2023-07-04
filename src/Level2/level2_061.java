@@ -2,15 +2,17 @@ package Level2;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class level2_061 {
 	//연속된 부분 수열의 합
 	public static void main(String[] args) {
-		int[] arr = {5,5,5};
+		int[] arr = {7,5,5,1,1,50,50};
 		//System.out.println(solution());
-		System.out.println(Arrays.toString(solution(arr, 4)));
+		System.out.println(Arrays.toString(solution(arr, 100)));
 	}
 	
 	public static int[] solution(int[] sequence, int k) {
@@ -19,19 +21,58 @@ public class level2_061 {
         
         int[] sumArr = {};
         sumArr = new int[sequence.length + 1];
+        Set<Integer> numSet = new LinkedHashSet<>();
         for(int i = 0; i < sumArr.length; i++) {
         	if(i == 0) {
-        		sumArr[i] = 0;
+        		if(sequence[i] == k) {
+        			answer[0] = i;
+        			answer[1] = i;
+        			numSet.clear();
+        			break;
+        		} else {
+        			numSet.add(sequence[i]);
+        			sumArr[i] = 0;
+        		}
         	} else {
-        		sumArr[i] = sumArr[i-1] + sequence[i - 1];
+        		if(sequence[i-1] == k) {
+        			answer[0] = i-1;
+        			answer[1] = i-1;
+        			numSet.clear();
+        			break;
+        		} else {
+        			numSet.add(sequence[i-1]);
+        			sumArr[i] = sumArr[i-1] + sequence[i - 1];
+        		}
         	}
         }
         
-        for(int x = sumArr.length - 1; x > 0; x--) {
-        	for(int y = x - 1; y > 0; y--) {
-        		if(sumArr[x] - sumArr[y] == k) {
-        			answer[0] = y;
-        			answer[1] = x;
+        if(numSet.size() > 1) {
+        	int x = 0;
+            int y = sumArr.length - 1;
+            
+            while (x < sumArr.length) {
+                if (sumArr[y] - sumArr[x] == k) {
+                	answer[0] = x;
+                	answer[1] = y-1;
+                	break;
+                } else if (sumArr[y] - sumArr[x] < k) {
+                	if(x < sumArr.length) {
+                		x++;
+                	}
+                	if(y < sumArr.length) {
+                		y++;
+                	}
+                } else {
+                	if(y > 0) {
+                		y--;
+                	}
+                }
+            }
+        } else if (numSet.size() == 1){
+        	for(int i = 0; i < sumArr.length; i++) {
+        		if(sumArr[i] == k) {
+        			answer[0] = 0;
+        			answer[1] = i - 1;
         		}
         	}
         }
