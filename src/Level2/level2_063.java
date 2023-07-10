@@ -1,15 +1,18 @@
 package Level2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 public class level2_063 {
 	//메뉴 리뉴얼
 	public static void main(String[] args) {
-		String[] str = {"ABCFG", "ABCFG"};
-		int[] in = {2}; 
+		String[] str = {"ABCFG", "ABC"};
+		int[] in = {2, 3, 4}; 
 		System.out.println(solution(str, in));
 		//System.out.println(Arrays.toString(solution()));
 	}
@@ -17,32 +20,50 @@ public class level2_063 {
 	static char[] chArr = {};
 	public static String[] solution(String[] orders, int[] course) {
         String[] answer = {};
-        boolean[] check = {};
-        Map<String, Integer> mapOr = new LinkedHashMap<>();
-        
-        for (int i = 0; i < orders.length; i++) {
-        	chArr = orders[i].toCharArray();
+        String str = "";
+        int r = 0;
+        List<String> combinations = new ArrayList<>();
+        Map<String, Integer> comMap = new HashMap<>(); 
+        for(int i = 0; i < orders.length; i++) {
+        	str = orders[i];
         	for(int j = 0; j < course.length; j++) {
-        		check = new boolean[chArr.length];
-        		combination(chArr, check, 0, chArr.length, course[j]);
+        		r = course[j];
+        		combinations.addAll(generateCombinations(str, r));
         	}
         }
-        
+
+        // 조합 출력
+        for (String combination : combinations) {
+        	comMap.put(combination, comMap.getOrDefault(combination, 0) + 1);
+        }
+        System.out.println(comMap);
+
         return answer;
 	}
 	
-    // 백트래킹 사용
-    // 사용 예시 : combination(arr, visited, 0, n, r)
-    static void combination(char[] arr, boolean[] visited, int start, int n, int r) {
+    private static List<String> generateCombinations(String str, int r) {
+        List<String> combinations = new ArrayList<>();
+
+        if (r > str.length()) {
+            return combinations;
+        }
+
+        generateCombinationsHelper(str, 0, r, new StringBuilder(), combinations);
+
+        return combinations;
+    }
+    
+    private static void generateCombinationsHelper(String str, int start, int r, StringBuilder currentCombination, List<String> combinations) {
         if (r == 0) {
+            combinations.add(currentCombination.toString());
             return;
         }
 
-        for (int i = start; i < n; i++) {
-            visited[i] = true;
-            System.out.println(arr[i]);
-            combination(arr, visited, i + 1, n, r - 1);
-            visited[i] = false;
+        for (int i = start; i < str.length(); i++) {
+            currentCombination.append(str.charAt(i));
+            generateCombinationsHelper(str, i + 1, r - 1, currentCombination, combinations);
+            currentCombination.deleteCharAt(currentCombination.length() - 1);
         }
     }
+
 }
