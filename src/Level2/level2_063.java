@@ -3,18 +3,18 @@ package Level2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class level2_063 {
 	//메뉴 리뉴얼
 	public static void main(String[] args) {
-		String[] str = {"ABCFG", "ABC"};
+		String[] str = {"XYZ", "XWY", "WXA"};
 		int[] in = {2, 3, 4}; 
-		System.out.println(solution(str, in));
-		//System.out.println(Arrays.toString(solution()));
+		//System.out.println(solution(str, in));
+		System.out.println(Arrays.toString(solution(str, in)));
 	}
 	
 	static char[] chArr = {};
@@ -23,21 +23,48 @@ public class level2_063 {
         String str = "";
         int r = 0;
         List<String> combinations = new ArrayList<>();
+        List<String> sbList = new ArrayList<>();
+        List<String> anList = new ArrayList<>();
         Map<String, Integer> comMap = new HashMap<>(); 
-        for(int i = 0; i < orders.length; i++) {
-        	str = orders[i];
-        	for(int j = 0; j < course.length; j++) {
-        		r = course[j];
+        int maxNum = 0, num = 0;
+        
+        for(int j = 0; j < course.length; j++) {
+        	r = course[j];
+        	maxNum = 0;
+        	for(int i = 0; i < orders.length; i++) {
+        		str = orders[i];
         		combinations.addAll(generateCombinations(str, r));
+        		sbList.clear();
+        		// 조합 출력
+        		for (String combination : combinations) {
+        			combination = Stream.of(combination.split(""))
+                            .sorted()
+                            .collect(Collectors.joining());
+        			comMap.put(combination, comMap.getOrDefault(combination, 0) + 1);
+        		}
+        		for(String key : comMap.keySet()) {
+        			num = comMap.get(key);
+        			if(num > 1) {
+        				if(maxNum < num) {
+        					sbList.clear();
+        					sbList.add(key);
+        					maxNum = num;
+        				} else if(maxNum == num) {
+        					if(!sbList.contains(key)) {
+        						sbList.add(key);
+        					}
+        				}
+        			}
+        		}
+        		System.out.println(comMap);
+        		System.out.println(sbList);
+        		combinations.clear();
         	}
+        	comMap.clear();
+        	anList.addAll(sbList);
         }
-
-        // 조합 출력
-        for (String combination : combinations) {
-        	comMap.put(combination, comMap.getOrDefault(combination, 0) + 1);
-        }
-        System.out.println(comMap);
-
+        answer = anList.stream().toArray(String[]:: new);
+        Arrays.sort(answer);
         return answer;
 	}
 	
