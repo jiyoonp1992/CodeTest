@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class level2_065 {
 	//[3차] 방금그곡
 	public static void main(String[] args) {
-		String[] strArr = {"13:00,13:05,WORLD,ABCDEF"};
-		String str = "ABC";
+		String[] strArr = {"06:20,06:50,TEST,DD#F"};
+		String str = "DF";
 		System.out.println(solution(str,strArr));
 		//System.out.println(Arrays.toString(solution()));
 	}
@@ -30,39 +30,44 @@ public class level2_065 {
         	
         	minute = ((bfHH * 60) + bfMM) - ((afHH * 60) + afMM);
         	
-        	strArr[3] = strArr[3].toLowerCase();
-        	m = m.toLowerCase();
         	while(strArr[3].contains("#")) {
         		int idx = strArr[3].indexOf("#");
         		String reStr = strArr[3].substring(idx-1, idx);
-        		strArr[3] = strArr[3].replace(reStr + "#", reStr.toUpperCase());
+        		strArr[3] = strArr[3].replace(reStr + "#", reStr.toLowerCase());
         	}
         	
         	while(m.contains("#")) {
         		int idx = m.indexOf("#");
         		String reStr = m.substring(idx-1, idx);
-        		m = m.replace(reStr + "#", reStr.toUpperCase());
+        		m = m.replace(reStr + "#", reStr.toLowerCase());
         	}
+        	
         	sb.append(strArr[3]);
         	while(minute > sb.length()) {
         		sb.append(strArr[3]);
         	}
+        	
         	str = sb.toString();
         	if(str.length() > minute) {
         		str = str.substring(0, minute);
         	}
-        	System.out.println(str);
         	
-        	if(m.length() > minute) {
-        		m = m.substring(0, minute);
+        	if(str.length() >= m.length()) {
+        		if(str.contains(m) && minute > max) {
+            		answer = strArr[2];
+            		max = minute;
+            	}
+        	} else {
+        		if(m.contains(str) && minute > max) {
+            		answer = strArr[2];
+            		max = minute;
+            	}
         	}
         	
-        	if(str.contains(m) && minute > max) {
-        		answer = strArr[2];
-        		max = minute;
-        	} else if(answer.equals("(None)") || answer.isEmpty()) {
+        	if(answer.equals("(None)") || answer.isEmpty()) {
         		answer = "(None)";
         	}
+        	
         	sb.delete(0, sb.length());
         	
         }
