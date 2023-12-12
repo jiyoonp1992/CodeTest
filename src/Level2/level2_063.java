@@ -56,8 +56,6 @@ public class level2_063 {
         				}
         			}
         		}
-        		System.out.println(comMap);
-        		System.out.println(sbList);
         		combinations.clear();
         	}
         	comMap.clear();
