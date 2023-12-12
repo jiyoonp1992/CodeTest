@@ -52,6 +52,7 @@ public class level2_066_1 {
 		if(!chk) {
 			//changerBracket(w);
 		}
-		return result;
+		
+		return true;
 	}
 }

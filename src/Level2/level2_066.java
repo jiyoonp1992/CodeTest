@@ -96,7 +96,6 @@ public class level2_066 {
 			u = "(" + u + ")";
 		}
 		w = u + v;
-		for(int k = 0;)
 		if(!st.empty()) {
 			divideBracket(w,st);
 		} else {
