@@ -12,55 +12,76 @@ public class level2_066_2 {
 		//System.out.println(Arrays.toString(solution()));
 	}
 	
+	static boolean nullchk = false;
 	public static String solution(String p) {
 		String answer = "";
-		Stack<String> stStr = new Stack<String>();
-		divideBracket(p, stStr);
-		answer = changerBracket(stStr);
+		Stack<String> st = new Stack<String>();
+		while (!p.isEmpty()) {
+			int cnt = 0;
+			for(int i = 0; i < p.length(); i++) {
+				if(p.charAt(i) == '(') {
+					cnt++;
+				} else {
+					cnt--;
+				}
+				if(cnt == 0 && i == p.length() - 1) {
+					st.push(p);
+					p = "";
+				} else if (cnt == 0) {
+					//최소 문자열
+					st.push(p.substring(0, i+1));
+					p = p.substring(i + 1);
+				}
+			}
+		}
+		
+		while (!st.empty()) {
+			String u = "";
+			u = st.peek();
+			if(u.charAt(0) == '(') {
+				//올바른
+			} else {
+				//균형잡힌
+			}
+		}
+		
         return answer;
 	}
 	
-	public static void divideBracket(String p, Stack<String> st) {
+	public static void divideBracket(String p, boolean nullchk) {
 		int cnt = 0;
+		String u = "";
+		String v = "";
 		for(int i = 0; i < p.length(); i++) {
 			if(p.charAt(i) == '(') {
 				cnt++;
 			} else {
 				cnt--;
 			}
-			if(cnt == 0 && i < p.length()-1) {
-				st.push(p.substring(0, i+1));
-				p = p.substring(i+1);
-				i = -1;
-			} else if(cnt == 0) {
-				st.push(p);
+			if(cnt == 0) {
+				//최소 문자열
+				u = p.substring(0, i+1);
+				v = p.substring(i + 2);
+				break;
 			}
+		}
+		
+		if(!v.isEmpty()) {
+			//v가 빈 문자열이 아닌경우
+			if(u.charAt(0) == '(') {
+				//올바른
+				//changerBracket(v, nullchk);
+			} else {
+				//균형
+				divideBracket(v, nullchk);
+			}
+		} else {
+			//v가 빈 문자열인 경우
 		}
 	}
 	
 	public static String changerBracket(Stack<String> st) {
 		String result = "";
-		String v = "";
-		String u = "";
-		String w = "";
-		while(st.size() > 1) {
-			v = st.pop();
-			if(v.charAt(0) == ')') {
-				v = v.substring(1, v.length() - 1);
-				v = v.replaceAll("\\(", "-").replaceAll("\\)", "(").replaceAll("-", ")");
-				w = "(" + "" + ")" + v;
-			} else {
-				u = st.pop();
-				w = u + v;
-			}
-			st.push(w);
-			System.out.println("w = " + w);
-			System.out.println("u = " + u);
-			System.out.println("v = " + v);
-			System.out.println("st = " + st);
-			System.out.println("------------------");
-		}
-		result = st.pop();
 		return result;
 	}
 	
