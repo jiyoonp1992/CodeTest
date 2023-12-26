@@ -6,83 +6,57 @@ import java.util.Stack;
 public class level2_066_2 {
 	//괄호 변환
 	public static void main(String[] args) {
-		//System.out.println(solution("(()())()"));
-		//System.out.println(solution(")("));
 		System.out.println(solution("()))((()"));
-		//System.out.println(Arrays.toString(solution()));
 	}
 	
-	static boolean nullchk = false;
 	public static String solution(String p) {
 		String answer = "";
-		Stack<String> st = new Stack<String>();
-		while (!p.isEmpty()) {
-			int cnt = 0;
-			for(int i = 0; i < p.length(); i++) {
-				if(p.charAt(i) == '(') {
-					cnt++;
-				} else {
-					cnt--;
-				}
-				if(cnt == 0 && i == p.length() - 1) {
-					st.push(p);
-					p = "";
-				} else if (cnt == 0) {
-					//최소 문자열
-					st.push(p.substring(0, i+1));
-					p = p.substring(i + 1);
-				}
-			}
-		}
-		
-		while (!st.empty()) {
-			String u = "";
-			u = st.peek();
-			if(u.charAt(0) == '(') {
-				//올바른
-			} else {
-				//균형잡힌
-			}
-		}
-		
+		answer = sortBracket(p);
         return answer;
 	}
 	
-	public static void divideBracket(String p, boolean nullchk) {
-		int cnt = 0;
+	public static String sortBracket(String p) {
+		String sortResult = "";
 		String u = "";
 		String v = "";
-		for(int i = 0; i < p.length(); i++) {
-			if(p.charAt(i) == '(') {
-				cnt++;
-			} else {
+		if(p.isEmpty()) {
+			return "";
+		}
+		int k = divideBracket(p);
+		if(k < p.length()) {
+			u = p.substring(0, k + 1);
+			v = p.substring(k + 1);
+		}
+		if(u.charAt(0) == '(') {
+			sortResult = u + sortBracket(v);
+		} else {
+			sortResult = '(' + sortBracket(v) + ')' + changerBracket(u);
+		}
+		return sortResult;
+	}
+	
+	public static String changerBracket(String w) {
+		String chanResult = "";
+		chanResult = w.replaceAll("\\)", "-").replaceAll("\\(", "\\)").replaceAll("-", "\\(");
+		return chanResult;
+	}
+	
+	public static int divideBracket(String s) {
+		int divIdx = 0;
+		int cnt = 0;
+		int j = s.length();
+		for(int i = 0; i < j - 1; i++) {
+			if(s.charAt(i) == '(') {
 				cnt--;
+			} else {
+				cnt++;
 			}
 			if(cnt == 0) {
-				//최소 문자열
-				u = p.substring(0, i+1);
-				v = p.substring(i + 2);
+				divIdx = i;
 				break;
 			}
 		}
-		
-		if(!v.isEmpty()) {
-			//v가 빈 문자열이 아닌경우
-			if(u.charAt(0) == '(') {
-				//올바른
-				//changerBracket(v, nullchk);
-			} else {
-				//균형
-				divideBracket(v, nullchk);
-			}
-		} else {
-			//v가 빈 문자열인 경우
-		}
-	}
-	
-	public static String changerBracket(Stack<String> st) {
-		String result = "";
-		return result;
+		return divIdx;
 	}
 	
 }
