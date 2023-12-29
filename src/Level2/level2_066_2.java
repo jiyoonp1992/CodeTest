@@ -20,17 +20,19 @@ public class level2_066_2 {
 		String u = "";
 		String v = "";
 		if(p.isEmpty()) {
-			return "";
+			return sortResult;
 		}
 		int k = divideBracket(p);
 		if(k < p.length()) {
-			u = p.substring(0, k + 1);
-			v = p.substring(k + 1);
+			u = p.substring(0, k);
+			v = p.substring(k, p.length());
+		} else {
+			u = p;
 		}
-		if(u.charAt(0) == '(') {
+		if(correctBracket(u)) {
 			sortResult = u + sortBracket(v);
 		} else {
-			sortResult = '(' + sortBracket(v) + ')' + changerBracket(u);
+			sortResult = "(" + sortBracket(v) + ")" + changerBracket(u);
 		}
 		return sortResult;
 	}
@@ -52,11 +54,31 @@ public class level2_066_2 {
 				cnt++;
 			}
 			if(cnt == 0) {
-				divIdx = i;
+				divIdx = i + 1;
 				break;
+			} else {
+				divIdx = 0;
 			}
 		}
 		return divIdx;
+	}
+	
+	public static boolean correctBracket(String c) {
+		boolean corResult = false;
+		int cnt = 0;
+		for(int i = 0; i < c.length(); i++) {
+			if(c.charAt(i) == '(') {
+				cnt++;
+			} else {
+				cnt--;
+			}
+			if(cnt < 0) {
+				break;
+			} else {
+				corResult = true;
+			}
+		}
+		return corResult;
 	}
 	
 }
