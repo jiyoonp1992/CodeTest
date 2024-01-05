@@ -11,74 +11,58 @@ public class level2_066_2 {
 	
 	public static String solution(String p) {
 		String answer = "";
-		answer = sortBracket(p);
+		answer = sortBk(p);
         return answer;
 	}
 	
-	public static String sortBracket(String p) {
+	public static String sortBk(String p) {
 		String sortResult = "";
-		String u = "";
-		String v = "";
 		if(p.isEmpty()) {
-			return sortResult;
+			return "";
 		}
-		int k = divideBracket(p);
-		if(k < p.length()) {
-			u = p.substring(0, k);
-			v = p.substring(k, p.length());
+		int k = divisBk(p);
+		String u = p.substring(0, k);
+		String v = p.substring(k);
+		boolean check = crctBk(u);
+		if(check) {
+			sortResult = u + sortBk(v);
 		} else {
-			u = p;
+			sortResult = "(" + sortBk(v) + ")" + rvrsBk(u);
 		}
-		if(correctBracket(u)) {
-			sortResult = u + sortBracket(v);
-		} else {
-			sortResult = "(" + sortBracket(v) + ")" + changerBracket(u);
-		}
+		System.out.println(sortResult);
 		return sortResult;
 	}
 	
-	public static String changerBracket(String w) {
-		String chanResult = "";
-		chanResult = w.replaceAll("\\)", "-").replaceAll("\\(", "\\)").replaceAll("-", "\\(");
-		return chanResult;
-	}
-	
-	public static int divideBracket(String s) {
-		int divIdx = 0;
-		int cnt = 0;
-		int j = s.length();
-		for(int i = 0; i < j - 1; i++) {
-			if(s.charAt(i) == '(') {
-				cnt--;
+	public static int divisBk(String p) {
+		int divisResult = 0;
+		int sum = 0;
+		for(int i = 0; i < p.length(); i++) {
+			if(p.charAt(i) == '(') {
+				sum++;
 			} else {
-				cnt++;
+				sum--;
 			}
-			if(cnt == 0) {
-				divIdx = i + 1;
+			if(sum == 0) {
+				divisResult = i + 1;
 				break;
-			} else {
-				divIdx = 0;
 			}
 		}
-		return divIdx;
+		return divisResult;
 	}
 	
-	public static boolean correctBracket(String c) {
-		boolean corResult = false;
-		int cnt = 0;
-		for(int i = 0; i < c.length(); i++) {
-			if(c.charAt(i) == '(') {
-				cnt++;
-			} else {
-				cnt--;
-			}
-			if(cnt < 0) {
-				break;
-			} else {
-				corResult = true;
-			}
+	public static boolean crctBk(String p) {
+		boolean crctResult = false;
+		if(p.charAt(0) == '(') {
+			crctResult = true;
 		}
-		return corResult;
+		return crctResult;
+	}
+	
+	public static String rvrsBk(String p) {
+		String rvrsResult = "";
+		rvrsResult = p.replaceAll("\\(", "_").replaceAll("\\)", "\\(").replaceAll("_", "\\)");
+		rvrsResult = rvrsResult.substring(1, rvrsResult.length() - 1);
+		return rvrsResult;
 	}
 	
 }
