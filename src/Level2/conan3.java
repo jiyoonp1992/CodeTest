@@ -9,7 +9,7 @@ public class conan3 {
 	public static void main(String[] args) {
 		int[] num01 = {3, 2, 4, 8, 7};
 		String str = "+82-10-3434-2323";
-		System.out.println(solution(str));
+		//System.out.println(solution(str));
 		//System.out.println(Arrays.toString(solution()));
 	}
 	

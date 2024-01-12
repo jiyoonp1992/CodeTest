@@ -1,7 +1,9 @@
 package Level2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -14,17 +16,9 @@ public class level2_67 {
 	
 	public static int solution(String[][] book_time) {
         int answer = 0;
-        Queue<Integer> strQu = new LinkedList<Integer>();
-        String stTimeStr = "", endTimeStr = "";
-        int stTime = 0, endTime = 0;
-        for(String[] endtime : book_time) {
-        	stTimeStr = endtime[0].replaceAll(":", "");
-        	endTimeStr = endtime[1].replaceAll(":", "");
-        	if(strQu.isEmpty()) {
-        		endTime = Integer.parseInt(endTimeStr);
-        		strQu.add(endTime);
-        	} else {
-        		
+        List<List<String>> list = new ArrayList<List<String>>();
+        for(String[] strArr : book_time) {
+        	if(list.isEmpty()){
         	}
         }
         
