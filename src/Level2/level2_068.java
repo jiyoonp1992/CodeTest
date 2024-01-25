@@ -1,12 +1,7 @@
 package Level2;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
 
 public class level2_068 {
 	//전력망 둘로 나누기
@@ -41,6 +36,7 @@ public class level2_068 {
 				}
 			}
 		}
+		System.out.println(Arrays.toString(answerArr));
 		Arrays.sort(answerArr);
 		answerArr[n-1] = answerArr[n-1] - 1;
 		answerArr[n-2] = answerArr[n-2] - 1;
