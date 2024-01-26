@@ -1,5 +1,6 @@
 package Level2;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,25 +9,20 @@ public class level2_068_1 {
 	public static void main(String[] args) {
 		int[][] intArr1 = {{1,3}, {2,3}, {3,4}, {4,5}, {4,6}, {4,7}, {7,8}, {7,9}};
 		int[][] intArr2 = {{1,2}, {2,7}, {3,7}, {3,4}, {4,5}, {6,7}};
-		int[][] intArr3 = {{1,2}, {2,3}, {3,4}};
-		System.out.println(solution(9, intArr1));
-		System.out.println(solution(7, intArr2));
+		int[][] intArr3 = {{1,2}, {1,3}, {1,4}};
+		int[][] intArr4 = {{1, 2}, {3, 4}, {5, 6}, {1, 3}, {3, 5}};
+		//System.out.println(solution(9, intArr1));
+		//System.out.println(solution(7, intArr2));
 		System.out.println(solution(4, intArr3));
+		//System.out.println(solution(6, intArr4));
 	}
 	
 	public static int solution(int n, int[][] wires) {
 		int answer = n;
-		int[] answerArr = new int[n];
-		int std = 0, len = wires.length - 1;
-		if(n%2 == 0) {
-			std = n/2;
-		} else {
-			std = n/2 + 1;
-		}
-		int x = 0, y = 0;
+		int len = wires.length - 1;
 		Set<Integer> xSet = new HashSet<Integer>();
 		Set<Integer> ySet = new HashSet<Integer>();
-		for(int i = 0; i < len; i++) {
+		for(int i = 0; i <= len; i++) {
 			xSet.add(wires[i][0]);
 			ySet.add(wires[i][1]);
 			for(int j = 0; j <= len; j++) {
@@ -38,18 +34,14 @@ public class level2_068_1 {
 					ySet.add(wires[j][0]);
 					ySet.add(wires[j][1]);
 				};
-				if((i != len - j) && (xSet.contains(wires[len - j][0]) || xSet.contains(wires[len - j][1]))) {
-					xSet.add(wires[len - j][0]);
-					xSet.add(wires[len - j][1]);
-				}
-				if((i != len - j) && (ySet.contains(wires[len - j][0]) || ySet.contains(wires[len - j][1]))) {
-					ySet.add(wires[len - j][0]);
-					ySet.add(wires[len - j][1]);
-				}
 			}
-			answer = Math.min(Math.abs(xSet.size() - ySet.size()), answer); 
-			xSet.clear();
-			ySet.clear();
+			if(xSet.size() + ySet.size() != n) {
+				i--;
+			} else {
+				answer = Math.min((Math.max(xSet.size(),ySet.size())-Math.min(xSet.size(),ySet.size())), answer); 
+				xSet.clear();
+				ySet.clear();
+			}
 		}
 		return answer;
 	}
